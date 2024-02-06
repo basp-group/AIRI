@@ -1,0 +1,46 @@
+# Mac
+**/.DS_Store
+
+# Windows
+Thumbs.db
+
+# WebStorm
+.idea/
+
+# vi
+*~
+
+# General
+logs/
+*.log
+*.err
+*.out
+
+# Python
+**/__pycache__/
+*.py[cod]
+
+*tmp_jobs*
+
+# Data
+*.mat
+*.fits
+*.zip
+*.tar.gz
+*.pdf
+*.png
+*.csv
+*.txt
+
+# WSCLEAN
+*.MS
+
+# MATLAB
+*.asv
+/tmp/*
+
+# ignore BM3D
+/lib/bm3d/*
+
+# Exception
+# !*shelf*.csv

@@ -1,0 +1,77 @@
+[
+    {   "__comment": "main",
+        "main": {
+            "msFile": [],
+            "resultPath": [],
+            "algorithm": "airi",
+            "imDimx": 512,
+            "imDimy": 512,
+            "imPixelSize": [],
+            "runID": []
+        }
+    },
+
+    {   "__comment": "General flags",
+
+        "flag": {  
+            "flag_comment_1": "flags",  
+            "flag_imaging": true,    
+            "flag_data_weighting": true,
+            "verbose": true
+        }
+     },
+
+     {   "__comment": "General params of measurement operator",
+
+        "measop": {
+            "measop_comment_1": "measop default params",
+            "dirProject":[],
+            "nufft_oversampling": [2,2], 
+            "nufft_kernelDim": [7,7],
+            "nufft_superresolution": 1.0
+        }
+     },
+     
+     {   "__comment": "Denoisers",
+
+        "airi": {  
+            "denoiser_comment_1": "airi params",      
+            "dnnShelfPath": "shelf_astro.csv",
+            "imMaxItr": 60,
+            "imVarTol": 1e-5,
+            "imPeakEst": [],
+            "dnnAdaptivePeak": true
+        },
+
+        "airi_default": {
+            "denoiser_comment_2": "airi default params", 
+            "imMinItr": 30,
+            "itrSave": 20,
+            "heuNoiseScale": 1.0,
+            "dnnApplyTransform": true,
+            "dnnAdaptivePeakTolMax": 1e-1,
+            "dnnAdaptivePeakTolMin": 1e-3,
+            "dnnAdaptivePeakTolStep": 0.1
+        },
+
+        "upnp_bm3d": {  
+            "denoiser_comment_1": "upnp-bm3d params",      
+            "dirBM3DLib": [],
+            "imMaxItr": 60,
+            "imVarTol": 1e-5,
+            "imPeakEst": 1.0,
+            "dnnAdaptivePeak": true
+        },
+
+        "upnp_bm3d_default": {
+            "denoiser_comment_2": "upnp-bm3d default params", 
+            "imMinItr": 30,
+            "itrSave": 20,
+            "heuNoiseScale": 2.0,
+            "dnnApplyTransform": true,
+            "dnnAdaptivePeakTolMax": 1e-1,
+            "dnnAdaptivePeakTolMin": 1e-3,
+            "dnnAdaptivePeakTolStep": 0.1
+        }
+    }
+]
