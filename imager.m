@@ -113,7 +113,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     end
 
     %% Save final results
-    fitswrite(RESULTS.MODEL, fullfile(param_imaging.resultPath, 'FINAL_MODULE.fits'))
+    fitswrite(RESULTS.MODEL, fullfile(param_imaging.resultPath, 'FINAL_MODEL.fits'))
     fitswrite(RESULTS.RESIDUAL, fullfile(param_imaging.resultPath, 'FINAL_RESIDUAL.fits'))
     
     fprintf('\nTHE END\n')
