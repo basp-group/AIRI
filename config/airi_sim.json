@@ -77,7 +77,7 @@
         "cairi": {  
             "denoiser_comment_1": "airi params",      
             "dnnShelfPath": "shelf_astro.csv",
-            "imMaxItr": 6000,
+            "imMaxItr": 4000,
             "imVarTol": 1e-5,
             "imPeakEst": [],
             "dnnAdaptivePeak": true
@@ -86,7 +86,7 @@
         "cairi_default": {
             "denoiser_comment_2": "airi default params", 
             "imMinItr": 100,
-            "itrSave": 500,
+            "itrSave": 2000,
             "heuNoiseScale": 1.0,
             "dnnApplyTransform": true,
             "dnnAdaptivePeakTolMax": 1e-1,
