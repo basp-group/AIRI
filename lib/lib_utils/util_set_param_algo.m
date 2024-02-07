@@ -1,4 +1,4 @@
-function param_algo = util_set_param_algo(param_general, MeasOpNorm, heuristic, peak_est)
+function param_algo = util_set_param_algo(param_general, heuristic, peak_est, numMeas)
 
     % algorithm type
     param_algo.algorithm = param_general.algorithm;
@@ -44,8 +44,6 @@ function param_algo = util_set_param_algo(param_general, MeasOpNorm, heuristic, 
         param_algo.imPeakEst = param_general.imPeakEst;
         fprintf("\nINFO: user specified the estimated image peak value: %g", param_algo.imPeakEst)
     end
-    % step size
-    param_algo.gamma = 1.98 / MeasOpNorm;
 
     % parameters shared by AIRI algorithms
     if flag_airi
@@ -87,7 +85,6 @@ function param_algo = util_set_param_algo(param_general, MeasOpNorm, heuristic, 
         end
     else
         % pnp with BM3D denoiser
-        % TODO
         if ~isfield(param_general,'dirBM3DLib') || isempty(param_general.dirBM3DLib)
             addpath(fullfile(param_general.dirProject, 'lib', 'bm3d'))
         else
@@ -97,7 +94,14 @@ function param_algo = util_set_param_algo(param_general, MeasOpNorm, heuristic, 
 
     % parameters shared by constrained algorithms
     if flag_constrained
-        % TODO: epsilon?
+        % TODO: user specifiy l2 error bound
+        % Theoretical l2 error bound, assume chi-square distribution, tau=1
+        param_algo.epsilon = sqrt(numMeas + 2 * sqrt(numMeas));
+        param_algo.sigma = 0.98 / param_general.measOpNormCmp;
+
+    else
+        % step size
+        param_algo.gamma = 1.98 / param_geneal.measOpNorm;
     end
 
 end

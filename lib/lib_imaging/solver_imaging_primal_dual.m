@@ -1,17 +1,19 @@
-function RESULTS = solver_imaging_forward_backward(DATA, FWOp, BWOp, param_imaging, param_algo)
+function RESULTS = solver_imaging_primal_dual(DATA, FWOp, BWOp, param_imaging, param_algo)
 %% ************************************************************************
 % *************************************************************************
-% Imaging: forward-backward algorithm
+% Imaging: primal-dual algorithm
 % *************************************************************************
 %% Initialization
 
 % initial image model
 MODEL = zeros(param_imaging.imDims);
+DUAL = zeros(size(DATA));
 % calculate dirty image
 DirtyIm = BWOp(DATA);
-
+% l2-ball projection
+prox_l2ball = @(z,c,radius) (z - c) * min(radius / norm(z(:)-c(:)), 1) + c;
 % AIRI specific
-flag_airi = strcmp(param_algo.algorithm, 'airi');
+flag_airi = strcmp(param_algo.algorithm, 'cairi');
 if flag_airi
     % load denoiser
     [netPath, scalingFactor, peakMin, peakMax] = ...
@@ -24,9 +26,9 @@ if flag_airi
         peak_curr = param_algo.imPeakEst;
     end
 
-    algo_print_name = '   AIRI  ';
+    algo_print_name = '  CAIRI  ';
 else
-    algo_print_name = 'UPNP-BM3D';
+    algo_print_name = 'CPNP-BM3D';
 end
 
 %% ALGORITHM
@@ -38,13 +40,10 @@ tStart_total = tic;
 for iter = 1 : param_algo.imMaxItr
     MODEL_prev = MODEL;
 
-    % gradient step
-    tStart_grad =tic;
-    Xhat = MODEL - param_algo.gamma * (BWOp(FWOp(MODEL)) - DirtyIm);
-    t_grad = toc(tStart_grad);
-
+    % primal update
+    tStart_primal =tic;
+    MODEL = MODEL - param_algo.sigma .* BWOp(DUAL);
     % denoising step
-    tStart_den =tic;
     if flag_airi
         % apply AIRI denoiser
         if param_algo.dnnApplyTransform
@@ -52,16 +51,16 @@ for iter = 1 : param_algo.imMaxItr
             do_fliplr = randi([0 1]); % left-right flip
             do_flipud = randi([0 1]); % up-down flip
 
-            if rot_id > 0, Xhat = rot90(Xhat,rot_id);
+            if rot_id > 0, MODEL = rot90(MODEL,rot_id);
             end
-            if do_fliplr,  Xhat = fliplr(Xhat);
+            if do_fliplr,  MODEL = fliplr(MODEL);
             end
-            if do_flipud , Xhat = flipud(Xhat);
+            if do_flipud , MODEL = flipud(MODEL);
             end
         end
         
         % apply denoiser
-        MODEL = double(predict(denoiser, Xhat./scalingFactor)).*scalingFactor;
+        MODEL = double(predict(denoiser, MODEL./scalingFactor)).*scalingFactor;
 
         if param_algo.dnnApplyTransform
             % undo transform
@@ -75,21 +74,33 @@ for iter = 1 : param_algo.imMaxItr
 
     else
         % BM3D
-        Xhat(Xhat<0) = 0;
-        Xhat(Xhat>param_algo.imPeakEst) = param_algo.imPeakEst;
-        MODEL = BM3D(Xhat/param_algo.imPeakEst, param_algo.heuristic) * param_algo.imPeakEst;
+        MODEL(MODEL<0) = 0;
+        MODEL(MODEL>param_algo.imPeakEst) = param_algo.imPeakEst;
+        MODEL = BM3D(MODEL/param_algo.imPeakEst, param_algo.heuristic) * param_algo.imPeakEst;
     end
-    t_den = toc(tStart_den);
+    t_primal = toc(tStart_primal);
+
+    % dual update
+    tStart_dual = tic;
+    DUAL = DUAL + FWOp(2*MODEL - MODEL_prev);
+    % l2-ball projection
+    DUAL_proj = prox_l2ball(DUAL, DATA, param_algo.epsilon);
+    DUAL = DUAL - DUAL_proj; % Moreau proximal decomposition
+    t_dual = toc(tStart_dual);
 
     % stopping creteria
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
-    if im_relval < param_algo.imVarTol && iter >= param_algo.imMinItr
+    diff = DATA - FWOp(MODEL);
+    data_fidelity = norm(diff(:)).^2;
+    if iter >= param_algo.imMinItr && ... % reach minimum number of iteration
+        im_relval < param_algo.imVarTol && ... % 
+        data_fidelity < param_algo.epsilon
         break;
     end
 
     % print info
-    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec., denoising step %f sec.", ...
-        iter, im_relval, t_grad, t_den);
+    fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec., dual update %f sec.", ...
+        iter, im_relval, data_fidelity, t_primal, t_dual);
 
     % save intermediate results
     if mod(iter, param_imaging.itrSave) == 0

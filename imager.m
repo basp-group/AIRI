@@ -40,9 +40,18 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     [A, At, G, W, ~, nWimag] = util_gen_meas_op_comp_single(pathData, imDimx, imDimy, ...
         param_general.flag_data_weighting, param_nufft, param_wproj, param_precond);
     [FWOp, BWOp] = util_syn_meas_op_single(A, At, G, W, []);
+
+    % compute operator norm
     fprintf('\nComputing spectral norm of the measurement operator..')
-    MeasOpNorm = op_norm(FWOp, BWOp, [imDimy,imDimx], 1e-6, 500, 0);
-    fprintf('\nINFO: measurement op norm %g', MeasOpNorm);
+    param_general.measOpNorm = op_norm(FWOp, BWOp, [imDimy,imDimx], 1e-6, 500, 0);
+    fprintf('\nINFO: measurement op norm %g', param_general.measOpNorm);
+    % if use primal-dual
+    if ismember(param_general.algorithm, {'cairi', 'cpnp-bm3d'})
+        [~, BWOpCmp] = util_syn_meas_op_single(A, At, G, W, [], true);
+        param_general.measOpNormCmp = op_norm(FWOp, BWOpCmp, [imDimy,imDimx], 1e-6, 500, 0);
+        fprintf('\nINFO: measurement op norm with complex BWOp %g', param_general.measOpNormCmp);
+        clear BWOpCmp
+    end
     
     % Compute PSF & dirty image
     dirac = zeros(imDimy, imDimx);
@@ -57,22 +66,22 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     clear dirac;
     
     %% Heuristic noise level
-    heuristic = 1 / sqrt(2 * MeasOpNorm);
+    heuristic = 1 / sqrt(2 * param_general.measOpNorm);
     fprintf('\nINFO: heuristic noise level: %g', heuristic);
 
     if param_general.flag_data_weighting
         % Calculate the correction factor of the heuristic noise level when
         % data weighting vector is used
         [FWOp_prime, BWOp_prime] = util_syn_meas_op_single(A, At, G, W, nWimag.^2);
-        MeasOpNorm_prime = op_norm(FWOp_prime,BWOp_prime,[imDimy,imDimx],1e-6,500,0);
-        heuristic_correction = sqrt(MeasOpNorm_prime/MeasOpNorm);
+        measOpNorm_prime = op_norm(FWOp_prime,BWOp_prime,[imDimy,imDimx],1e-6,500,0);
+        heuristic_correction = sqrt(measOpNorm_prime/param_general.measOpNorm);
         clear FWOp_prime BWOp_prime;
         heuristic = heuristic .* heuristic_correction;
         fprintf('\nINFO: heuristic noise level after correction: %g', heuristic);
     end
 
     %% Set parameters for imaging and algorithms
-    param_algo = util_set_param_algo(param_general, MeasOpNorm, heuristic, peak_est);
+    param_algo = util_set_param_algo(param_general, heuristic, peak_est, numel(DATA));
     param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy,imDimx], runID);
     
     % save dirty image and PSF
@@ -82,13 +91,13 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     % clear unnecessary vars
     clear param_nufft param_precond param_wproj param_general 
     clear dirProject imDimx imDimy imPixelSize maxProjBaseline 
-    clear MeasOpNorm nWimag pathData runID
+    clear measOpNorm_prime nWimag pathData runID
     clear peak_est spatialBandwidth PSF dirty heuristic
     clear A At G W
     
     %% INFO
     fprintf("\n________________________________________________________________\n")
-    disp('\nparam_algo')
+    disp('param_algo')
     disp(param_algo)
     disp('param_imaging')
     disp(param_imaging)

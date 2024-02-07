@@ -37,7 +37,7 @@
         "airi": {  
             "denoiser_comment_1": "airi params",      
             "dnnShelfPath": "shelf_astro.csv",
-            "imMaxItr": 60,
+            "imMaxItr": 6000,
             "imVarTol": 1e-5,
             "imPeakEst": [],
             "dnnAdaptivePeak": true
@@ -45,8 +45,8 @@
 
         "airi_default": {
             "denoiser_comment_2": "airi default params", 
-            "imMinItr": 30,
-            "itrSave": 20,
+            "imMinItr": 200,
+            "itrSave": 2000,
             "heuNoiseScale": 1.0,
             "dnnApplyTransform": true,
             "dnnAdaptivePeakTolMax": 1e-1,
@@ -57,7 +57,7 @@
         "upnp_bm3d": {  
             "denoiser_comment_1": "upnp-bm3d params",      
             "dirBM3DLib": [],
-            "imMaxItr": 60,
+            "imMaxItr": 1200,
             "imVarTol": 1e-5,
             "imPeakEst": 1.0,
             "dnnAdaptivePeak": true
@@ -72,6 +72,47 @@
             "dnnAdaptivePeakTolMax": 1e-1,
             "dnnAdaptivePeakTolMin": 1e-3,
             "dnnAdaptivePeakTolStep": 0.1
+        },
+
+        "cairi": {  
+            "denoiser_comment_1": "airi params",      
+            "dnnShelfPath": "shelf_astro.csv",
+            "imMaxItr": 6000,
+            "imVarTol": 1e-5,
+            "imPeakEst": [],
+            "dnnAdaptivePeak": true
+        },
+
+        "cairi_default": {
+            "denoiser_comment_2": "airi default params", 
+            "imMinItr": 100,
+            "itrSave": 500,
+            "heuNoiseScale": 1.0,
+            "dnnApplyTransform": true,
+            "dnnAdaptivePeakTolMax": 1e-1,
+            "dnnAdaptivePeakTolMin": 1e-3,
+            "dnnAdaptivePeakTolStep": 0.1
+        },
+
+        "cpnp_bm3d": {  
+            "denoiser_comment_1": "upnp-bm3d params",      
+            "dirBM3DLib": [],
+            "imMaxItr": 1200,
+            "imVarTol": 1e-5,
+            "imPeakEst": 1.0,
+            "dnnAdaptivePeak": true
+        },
+
+        "cpnp_bm3d_default": {
+            "denoiser_comment_2": "upnp-bm3d default params", 
+            "imMinItr": 100,
+            "itrSave": 500,
+            "heuNoiseScale": 3.0,
+            "dnnApplyTransform": true,
+            "dnnAdaptivePeakTolMax": 1e-1,
+            "dnnAdaptivePeakTolMin": 1e-3,
+            "dnnAdaptivePeakTolStep": 0.1
         }
+
     }
 ]
