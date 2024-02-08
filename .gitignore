@@ -29,7 +29,6 @@ logs/
 *.tar.gz
 *.pdf
 *.png
-*.csv
 *.txt
 
 # WSCLEAN
