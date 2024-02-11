@@ -101,7 +101,7 @@ function param_algo = util_set_param_algo(param_general, heuristic, peak_est, nu
 
     else
         % step size
-        param_algo.gamma = 1.98 / param_geneal.measOpNorm;
+        param_algo.gamma = 1.98 / param_general.measOpNorm;
     end
 
 end
