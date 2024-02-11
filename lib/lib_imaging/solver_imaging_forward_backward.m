@@ -76,20 +76,23 @@ for iter = 1 : param_algo.imMaxItr
     else
         % BM3D
         Xhat(Xhat<0) = 0;
-        Xhat(Xhat>param_algo.imPeakEst) = param_algo.imPeakEst;
-        MODEL = BM3D(Xhat/param_algo.imPeakEst, param_algo.heuristic) * param_algo.imPeakEst;
+        currPeak = max(Xhat, [], 'all');
+        if currPeak < 1.0
+            currPeak = 1.0;
+        end
+        MODEL = BM3D(Xhat/currPeak, param_algo.heuristic) * currPeak;
     end
     t_den = toc(tStart_den);
 
-    % stopping creteria
+    % print info
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
+    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec., denoising step %f sec.", ...
+        iter, im_relval, t_grad, t_den);
+
+    % stopping creteria
     if im_relval < param_algo.imVarTol && iter >= param_algo.imMinItr
         break;
     end
-
-    % print info
-    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec., denoising step %f sec.", ...
-        iter, im_relval, t_grad, t_den);
 
     % save intermediate results
     if mod(iter, param_imaging.itrSave) == 0
@@ -124,7 +127,7 @@ t_total = toc(tStart_total);
 
 fprintf("\n\nImaging finished in %f sec., total number of iterations %d\n\n", t_total, iter);
 fprintf('\n**************************************\n')
-fprintf('********* END OF ALGORITHM *********')
+fprintf('********** END OF ALGORITHM **********')
 fprintf('\n**************************************\n')
 
 %% Final variables

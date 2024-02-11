@@ -75,8 +75,11 @@ for iter = 1 : param_algo.imMaxItr
     else
         % BM3D
         MODEL(MODEL<0) = 0;
-        MODEL(MODEL>param_algo.imPeakEst) = param_algo.imPeakEst;
-        MODEL = BM3D(MODEL/param_algo.imPeakEst, param_algo.heuristic) * param_algo.imPeakEst;
+        currPeak = max(MODEL, [], 'all');
+        if currPeak <= 1.0
+            currPeak = 1.0;
+        end
+        MODEL = BM3D(MODEL/currPeak, param_algo.heuristic) * currPeak;
     end
     t_primal = toc(tStart_primal);
 
@@ -90,17 +93,25 @@ for iter = 1 : param_algo.imMaxItr
 
     % stopping creteria
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
-    diff = DATA - FWOp(MODEL);
-    data_fidelity = norm(diff(:)).^2;
+    
     if iter >= param_algo.imMinItr && ... % reach minimum number of iteration
-        im_relval < param_algo.imVarTol && ... % 
-        data_fidelity < param_algo.epsilon
-        break;
-    end
+        im_relval < param_algo.imVarTol % reach variation tolerane
 
-    % print info
-    fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec., dual update %f sec.", ...
-        iter, im_relval, data_fidelity, t_primal, t_dual);
+        diff = DATA - FWOp(MODEL);
+        data_fidelity = norm(diff(:));
+
+        % print info
+        fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec., dual update %f sec.", ...
+            iter, im_relval, data_fidelity, t_primal, t_dual);
+
+        if data_fidelity < param_algo.epsilon
+            break;
+        end
+    else
+        % print info
+        fprintf("\n\nIter %d: relative variation %g, primal update %f sec., dual update %f sec.", ...
+            iter, im_relval, t_primal, t_dual);
+    end
 
     % save intermediate results
     if mod(iter, param_imaging.itrSave) == 0
@@ -135,7 +146,7 @@ t_total = toc(tStart_total);
 
 fprintf("\n\nImaging finished in %f sec., total number of iterations %d\n\n", t_total, iter);
 fprintf('\n**************************************\n')
-fprintf('********* END OF ALGORITHM *********')
+fprintf('********** END OF ALGORITHM **********')
 fprintf('\n**************************************\n')
 
 %% Final variables
