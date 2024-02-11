@@ -30,6 +30,7 @@ logs/
 *.pdf
 *.png
 *.txt
+*.onnx
 
 # WSCLEAN
 *.MS
