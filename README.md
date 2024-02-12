@@ -64,7 +64,7 @@ git clone --recurse-submodules git@github.com:basp-group/Faceted-HyperSARA.git
 
 You will then also need to update the local repository configuration to use this approach for the sub-modules and update the submodules separately as detailed below.
 
-- Submodules update: updating from an existing `Faceted-HyperSARA` repository.
+- Submodules update: updating from an existing `AIRI` repository.
 
 ```bash
 git pull
