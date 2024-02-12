@@ -9,6 +9,7 @@
     - [Cloning the project](#cloning-the-project)
     - [Add BM3D Library](#add-bm3d-library)
     - [Add pretrained AIRI denoisers](#add-pretrained-airi-denoisers)
+    - [Examples](#examples)
 
 ## Description
 
