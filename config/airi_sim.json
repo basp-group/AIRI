@@ -38,7 +38,7 @@
             "denoiser_comment_1": "airi params",      
             "dnnShelfPath": "./airi_denoisers/shelf_oaid.csv",
             "imMaxItr": 6000,
-            "imVarTol": 1e-5,
+            "imVarTol": 8e-5,
             "imPeakEst": [],
             "dnnAdaptivePeak": true
         },
@@ -58,7 +58,7 @@
             "denoiser_comment_1": "upnp-bm3d params",      
             "dirBM3DLib": [],
             "imMaxItr": 1200,
-            "imVarTol": 1e-5,
+            "imVarTol": 2e-4,
             "imPeakEst": []
         },
 
@@ -73,7 +73,7 @@
             "denoiser_comment_1": "airi params",      
             "dnnShelfPath": "./airi_denoisers/shelf_oaid.csv",
             "imMaxItr": 4000,
-            "imVarTol": 1e-5,
+            "imVarTol": 8e-5,
             "imPeakEst": [],
             "dnnAdaptivePeak": true
         },
@@ -93,7 +93,7 @@
             "denoiser_comment_1": "upnp-bm3d params",      
             "dirBM3DLib": [],
             "imMaxItr": 1200,
-            "imVarTol": 1e-5,
+            "imVarTol": 2e-4,
             "imPeakEst": []
         },
 
