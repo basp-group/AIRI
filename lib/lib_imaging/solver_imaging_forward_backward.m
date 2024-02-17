@@ -36,6 +36,7 @@ fprintf('\n*************************************************\n')
 
 tStart_total = tic;
 for iter = 1 : param_algo.imMaxItr
+    tStart_iter =tic;
     MODEL_prev = MODEL;
 
     % gradient step
@@ -83,11 +84,13 @@ for iter = 1 : param_algo.imMaxItr
         MODEL = BM3D(Xhat/currPeak, param_algo.heuristic) * currPeak;
     end
     t_den = toc(tStart_den);
+    t_iter = toc(tStart_iter);
 
     % print info
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
-    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec., denoising step %f sec.", ...
-        iter, im_relval, t_grad, t_den);
+    % print info
+    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec., denoising step %f sec, current iteration %f sec.", ...
+        iter, im_relval, t_grad, t_den, t_iter);
 
     % stopping creteria
     if im_relval < param_algo.imVarTol && iter >= param_algo.imMinItr

@@ -38,6 +38,7 @@ fprintf('\n*************************************************\n')
 
 tStart_total = tic;
 for iter = 1 : param_algo.imMaxItr
+    tStart_iter =tic;
     MODEL_prev = MODEL;
 
     % primal update
@@ -90,6 +91,7 @@ for iter = 1 : param_algo.imMaxItr
     DUAL_proj = prox_l2ball(DUAL, DATA, param_algo.epsilon);
     DUAL = DUAL - DUAL_proj; % Moreau proximal decomposition
     t_dual = toc(tStart_dual);
+    t_iter = toc(tStart_iter);
 
     % stopping creteria
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
@@ -101,16 +103,16 @@ for iter = 1 : param_algo.imMaxItr
         data_fidelity = norm(diff(:));
 
         % print info
-        fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec., dual update %f sec.", ...
-            iter, im_relval, data_fidelity, t_primal, t_dual);
+        fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec., dual update %f sec, current iteration %f sec.", ...
+            iter, im_relval, data_fidelity, t_primal, t_dual, t_iter);
 
         if data_fidelity < param_algo.epsilon
             break;
         end
     else
         % print info
-        fprintf("\n\nIter %d: relative variation %g, primal update %f sec., dual update %f sec.", ...
-            iter, im_relval, t_primal, t_dual);
+        fprintf("\n\nIter %d: relative variation %g, primal update %f sec., dual update %f sec, current iteration %f sec.", ...
+            iter, im_relval, t_primal, t_dual, t_iter);
     end
 
     % save intermediate results
