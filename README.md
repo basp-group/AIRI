@@ -95,7 +95,7 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
 ### Add pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). Afterwards, please move the folders ``shelf_astro`` and ``shelf_bio`` to the folder ``airi_denoisers`` in the repository.
+If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). Afterwards, please move the folders ``shelf_oaid`` and ``shelf_mrid`` to the folder ``airi_denoisers`` in the repository.
 
 ## Input Files
 ### Measurement file
