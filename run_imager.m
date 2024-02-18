@@ -97,6 +97,23 @@ disp(param_solver)
 param_general = cell2struct([struct2cell(param_flag); struct2cell(param_measop); struct2cell(param_solver)], ...
     [fieldnames(param_flag); fieldnames(param_measop); fieldnames(param_solver)]);
 param_general.resultPath = main.resultPath;
+
+% set fields to default value if missing
+% general flag
+if ~isfield(param_general, 'flag_imaging')
+    param_general.flag_imaging = true;
+end
+if ~isfield(param_general, 'flag_data_weighting')
+    param_general.flag_data_weighting = true;
+end
+if ~isfield(param_general, 'verbose')
+    param_general.verbose = true;
+end
+% super-resolution factor
+if ~isfield(param_general, 'nufft_superresolution')
+    param_general.nufft_superresolution = 1.0; % the ratio between the given max projection base line and the desired one 
+end
+
 fprintf("\n________________________________________________________________\n")
 
 %% main function

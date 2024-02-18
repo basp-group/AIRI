@@ -1,6 +1,8 @@
 function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     
     fprintf('\nINFO: measurement file %s', pathData);
+    fprintf('\nINFO: Image size %d x %d', imDimx, imDimy)
+
     %% setting paths
     dirProject = param_general.dirProject;
     fprintf('\nINFO: Main project dir. is %s', dirProject);
@@ -13,10 +15,6 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'utils']);
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'operators']);
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'ddes_utils']);
-
-    %% setting general parameters
-    param_general = util_set_param_general(param_general);
-    fprintf('\nINFO: Image size %d x %d', imDimx, imDimy)
     
     %% Measurements & operators
     % Measurements
