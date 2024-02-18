@@ -87,8 +87,8 @@ param_solver.algorithm = main.algorithm;
 disp(param_solver)
 
 % full param list
-param_general = cell2struct([struct2cell(param_flag); struct2cell(param_measop); struct2cell(param_solver)], ...
-    [fieldnames(param_flag); fieldnames(param_measop); fieldnames(param_solver)]);
+param_general = cell2struct([struct2cell(param_flag); struct2cell(param_solver)], ...
+    [fieldnames(param_flag); fieldnames(param_solver)]);
 param_general.resultPath = main.resultPath;
 
 % set fields to default value if missing
