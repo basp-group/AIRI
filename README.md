@@ -77,7 +77,7 @@ git submodule update --remote --merge # fetch and merge latest state of the subm
 ```
 
 ### Add BM3D Library
-The [BM3D]() MATLAB library v.3.0.9 can be downloaded on its webpage or directly though [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, please copy the folder ``bm3d`` in the folder to the folder ``lib`` into this repository.
+The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded on its webpage or directly though [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, please copy the folder ``bm3d`` in the folder to the folder ``lib`` into this repository.
 
 If you are working on macOS, you may need to run the following commands to remove the system restrictions on Matlab executable files in the BM3D library.
 
@@ -111,6 +111,8 @@ Following [``Faceted-HyperSARA``](https://github.com/basp-group/Faceted-HyperSAR
 "nWimag" # imaging weights if available (Briggs or uniform), empty otherwise
 "maxProjBaseline" # max projected baseline (in units of the wavelength)
 ```
+
+The python script that can be used to extract monochromatic measurements from MS files in the above format is also provided in the folder ``pyxisMs2mat``.
 
 ### Configuration file
 The configiration file is a ``.json`` format file defining the parameters required by different algorithms.
