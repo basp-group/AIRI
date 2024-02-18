@@ -18,7 +18,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     
     %% Measurements & operators
     % Measurements
-    [DATA, param_general.flag_data_weighting] = util_load_meas_single(pathData, param_general.flag_data_weighting);
+    [DATA, param_general.flag_data_weighting] = util_read_data_file(pathData, param_general.flag_data_weighting);
 
     % Set pixel size
     if isempty(imPixelSize)

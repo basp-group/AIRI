@@ -1,4 +1,4 @@
-function [y, flag_data_weighting] = util_load_meas_single(dataFilename, flag_data_weighting)
+function [y, flag_data_weighting] = util_read_data_file(dataFilename, flag_data_weighting)
 
     try dataloaded = load(dataFilename, 'y', 'nW', 'nWimag');
     catch
