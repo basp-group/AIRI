@@ -55,29 +55,29 @@ disp(param_flag)
 % solver
 switch main.algorithm
     case 'airi'
-        param_solver = cell2struct(struct2cell(config{4, 1}.airi), fieldnames(config{4, 1}.airi));
-        param_solver_default = cell2struct(struct2cell(config{4, 1}.airi_default), fieldnames(config{4, 1}.airi_default));
+        param_solver = cell2struct(struct2cell(config{3, 1}.airi), fieldnames(config{3, 1}.airi));
+        param_solver_default = cell2struct(struct2cell(config{3, 1}.airi_default), fieldnames(config{3, 1}.airi_default));
         param_solver = cell2struct([struct2cell(param_solver); struct2cell(param_solver_default)], ...
             [fieldnames(param_solver); fieldnames(param_solver_default)]);
         if isfield(NameValueArgs, 'dnnShelfPath')
             param_solver.dnnShelfPath = NameValueArgs.dnnShelfPath;
         end
     case 'cairi'
-        param_solver = cell2struct(struct2cell(config{4, 1}.cairi), fieldnames(config{4, 1}.cairi));
-        param_solver_default = cell2struct(struct2cell(config{4, 1}.cairi_default), fieldnames(config{4, 1}.cairi_default));
+        param_solver = cell2struct(struct2cell(config{3, 1}.cairi), fieldnames(config{3, 1}.cairi));
+        param_solver_default = cell2struct(struct2cell(config{3, 1}.cairi_default), fieldnames(config{3, 1}.cairi_default));
         param_solver = cell2struct([struct2cell(param_solver); struct2cell(param_solver_default)], ...
             [fieldnames(param_solver); fieldnames(param_solver_default)]);
         if isfield(NameValueArgs, 'dnnShelfPath')
             param_solver.dnnShelfPath = NameValueArgs.dnnShelfPath;
         end
     case 'upnp-bm3d'
-        param_solver = cell2struct(struct2cell(config{4, 1}.upnp_bm3d), fieldnames(config{4, 1}.upnp_bm3d));
-        param_solver_default = cell2struct(struct2cell(config{4, 1}.upnp_bm3d_default), fieldnames(config{4, 1}.upnp_bm3d_default));
+        param_solver = cell2struct(struct2cell(config{3, 1}.upnp_bm3d), fieldnames(config{3, 1}.upnp_bm3d));
+        param_solver_default = cell2struct(struct2cell(config{3, 1}.upnp_bm3d_default), fieldnames(config{3, 1}.upnp_bm3d_default));
         param_solver = cell2struct([struct2cell(param_solver); struct2cell(param_solver_default)], ...
             [fieldnames(param_solver); fieldnames(param_solver_default)]);
     case 'cpnp-bm3d'
-        param_solver = cell2struct(struct2cell(config{4, 1}.cpnp_bm3d), fieldnames(config{4, 1}.cpnp_bm3d));
-        param_solver_default = cell2struct(struct2cell(config{4, 1}.cpnp_bm3d_default), fieldnames(config{4, 1}.cpnp_bm3d_default));
+        param_solver = cell2struct(struct2cell(config{3, 1}.cpnp_bm3d), fieldnames(config{3, 1}.cpnp_bm3d));
+        param_solver_default = cell2struct(struct2cell(config{3, 1}.cpnp_bm3d_default), fieldnames(config{3, 1}.cpnp_bm3d_default));
         param_solver = cell2struct([struct2cell(param_solver); struct2cell(param_solver_default)], ...
             [fieldnames(param_solver); fieldnames(param_solver_default)]);
     otherwise
