@@ -30,6 +30,7 @@ config = jsondecode(str);
 
 % main input
 main = cell2struct(struct2cell(config{1, 1}.main), fieldnames(config{1, 1}.main));
+% overwrite fields in main if available
 if isfield(NameValueArgs, 'msFile')
     main.msFile = NameValueArgs.msFile;
 end
@@ -50,14 +51,6 @@ disp(main)
 % flag
 param_flag = cell2struct(struct2cell(config{2, 1}.flag), fieldnames(config{2, 1}.flag));
 disp(param_flag)
-
-% meas op
-param_measop = cell2struct(struct2cell(config{3, 1}.measop), fieldnames(config{3, 1}.measop));
-% set main path for the program
-if ~isfield(param_measop, 'dirProject') || isempty(param_measop.dirProject)
-    param_measop.dirProject = [pwd, filesep];
-end
-disp(param_measop)
 
 % solver
 switch main.algorithm
@@ -99,6 +92,10 @@ param_general = cell2struct([struct2cell(param_flag); struct2cell(param_measop);
 param_general.resultPath = main.resultPath;
 
 % set fields to default value if missing
+% set main path for the program
+if ~isfield(param_general, 'dirProject') || isempty(param_general.dirProject)
+    param_general.dirProject = [pwd, filesep];
+end
 % general flag
 if ~isfield(param_general, 'flag_imaging')
     param_general.flag_imaging = true;
@@ -110,8 +107,8 @@ if ~isfield(param_general, 'verbose')
     param_general.verbose = true;
 end
 % super-resolution factor
-if ~isfield(param_general, 'nufft_superresolution')
-    param_general.nufft_superresolution = 1.0; % the ratio between the given max projection base line and the desired one 
+if ~isfield(param_general, 'superresolution')
+    param_general.superresolution = 1.0; % the ratio between the given max projection base line and the desired one 
 end
 
 fprintf("\n________________________________________________________________\n")

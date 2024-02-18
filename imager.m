@@ -24,9 +24,9 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     if isempty(imPixelSize)
         maxProjBaseline = double( load(pathData, 'maxProjBaseline').maxProjBaseline );
         spatialBandwidth = 2 * maxProjBaseline;
-        imPixelSize = (180 / pi) * 3600 / (param_general.nufft_superresolution * spatialBandwidth);
+        imPixelSize = (180 / pi) * 3600 / (param_general.superresolution * spatialBandwidth);
         fprintf('\nINFO: default pixelsize: %g arcsec, that is %d x nominal resolution at the highest freq.',...
-            imPixelSize, param_general.nufft_superresolution);
+            imPixelSize, param_general.superresolution);
     else
         fprintf('\nINFO: user specified pixelsize: %g arcsec,', imPixelSize)
     end

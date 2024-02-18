@@ -7,6 +7,8 @@
             "imDimx": 512,
             "imDimy": 512,
             "imPixelSize": [],
+            "superresolution": 1.0,
+            "dirProject":[],
             "runID": []
         }
     },
@@ -18,17 +20,6 @@
             "flag_imaging": true,    
             "flag_data_weighting": true,
             "verbose": true
-        }
-     },
-
-     {   "__comment": "General params of measurement operator",
-
-        "measop": {
-            "measop_comment_1": "measop default params",
-            "dirProject":[],
-            "nufft_oversampling": [2,2], 
-            "nufft_kernelDim": [7,7],
-            "nufft_superresolution": 1.0
         }
      },
      
