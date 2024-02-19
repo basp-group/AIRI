@@ -93,7 +93,9 @@ param_general.resultPath = main.resultPath;
 
 % set fields to default value if missing
 % set main path for the program
-if ~isfield(param_general, 'dirProject') || isempty(param_general.dirProject)
+if isfield(main, 'dirProject') && ~isempty(main.dirProject)
+    param_general.dirProject = main.dirProject;
+else
     param_general.dirProject = [pwd, filesep];
 end
 % general flag
@@ -107,17 +109,21 @@ if ~isfield(param_general, 'verbose')
     param_general.verbose = true;
 end
 % super-resolution factor
-if ~isfield(param_general, 'superresolution')
-    param_general.superresolution = 1.0; % the ratio between the given max projection base line and the desired one 
+if isfield(main, 'superresolution') && ~isempty(main.superresolution)
+    param_general.superresolution = main.superresolution; % the ratio between the given max projection base line and the desired one 
+else
+    param_general.superresolution = 1.0;
 end
 % compute resources
-if isfield(param_general,'ncpus') && ~isempty(param_general.ncpus)
+if isfield(main,'ncpus') && ~isempty(main.ncpus)
     navail=maxNumCompThreads;
-    nrequested = maxNumCompThreads(param_general.ncpus);
-    fprintf("\nINFO: Available CPUs: %d. Requested CPUs: %d",navail , maxNumCompThreads)
+    nrequested = maxNumCompThreads(main.ncpus);
+    fprintf("\nINFO: Available CPUs: %d. Requested CPUs: %d\n",navail , maxNumCompThreads)
 else
-    fprintf("\nINFO: Available CPUs: %d.", maxNumCompThreads)
+    fprintf("\nINFO: Available CPUs: %d.\n", maxNumCompThreads)
 end
+
+disp(param_general)
 
 fprintf("\n________________________________________________________________\n")
 
