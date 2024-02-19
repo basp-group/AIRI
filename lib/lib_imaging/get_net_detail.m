@@ -44,5 +44,7 @@ function [net_pth, scaling_factor, peakMin, peakMax] = get_net_detail(shelf_pth,
     fprintf('\nSHELF *** Peak value is expected in range: [%g, %g]', peakMin, peakMax);
     
     scaling_factor = heuristic/sigma_s;
+
+    fprintf('\nSHELF *** scaling factor applied to the image: %g', scaling_factor);
     
 end
