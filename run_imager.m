@@ -110,6 +110,14 @@ end
 if ~isfield(param_general, 'superresolution')
     param_general.superresolution = 1.0; % the ratio between the given max projection base line and the desired one 
 end
+% compute resources
+if isfield(param_general,'ncpus') && ~isempty(param_general.ncpus)
+    navail=maxNumCompThreads;
+    nrequested = maxNumCompThreads(param_general.ncpus);
+    fprintf("\nINFO: Available CPUs: %d. Requested CPUs: %d",navail , maxNumCompThreads)
+else
+    fprintf("\nINFO: Available CPUs: %d.", maxNumCompThreads)
+end
 
 fprintf("\n________________________________________________________________\n")
 

@@ -8,7 +8,8 @@
             "imDimy": 512,
             "imPixelSize": [],
             "superresolution": 1.0,
-            "dirProject":[],
+            "dirProject": [],
+            "ncpus": [],
             "runID": []
         }
     },
