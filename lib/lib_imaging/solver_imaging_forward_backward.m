@@ -111,7 +111,7 @@ for iter = 1 : param_algo.imMaxItr
         peak_prev = peak_curr;
         peak_curr = max(MODEL, [], 'all');
         peak_var = abs(peak_curr - peak_prev) / abs(peak_prev);
-        fprintf('\nModel image peak value %g, relative variance = %g', peak_curr, peak_var);
+        fprintf('\nModel image peak value %g, relative variation = %g', peak_curr, peak_var);
         % peak value is stable and out of desired range
         if peak_var < dnnAdaptivePeakTol && (peak_curr > peakMax || peak_curr < peakMin)
             [netPath, scalingFactor_new, peakMin, peakMax] = ...
