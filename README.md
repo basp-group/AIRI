@@ -2,7 +2,7 @@
 ![language](https://img.shields.io/badge/language-MATLAB-orange.svg)
 [![license](https://img.shields.io/badge/license-GPL--3.0-brightgreen.svg)](LICENSE)
 
-- [AIRI: "AI for Regularisation in Imaging" plug-and-play algorithms for computational imaging](#parallel-faceted-imaging-in-radio-interferometry-via-proximal-splitting)
+- [AIRI: "AI for Regularisation in Imaging" plug-and-play algorithms for computational imaging](#airi-ai-for-regularisation-in-imaging-plug-and-play-algorithms-for-computational-imaging)
   - [Description](#description)
   - [Dependencies](#dependencies)
   - [Installation](#installation)
