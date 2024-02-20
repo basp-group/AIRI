@@ -99,7 +99,7 @@ If you'd like to use our trained AIRI denoisers, you can download the ONNX files
 
 ## Input Files
 ### Measurement file
-Following [``Faceted-HyperSARA``](https://github.com/basp-group/Faceted-HyperSARA/tree/master/pyxisMs2mat) the measurement file is expected to be a ``.mat`` file containing the folloiwng fields.
+Following [``Faceted-HyperSARA``](https://github.com/basp-group/Faceted-HyperSARA/tree/master/pyxisMs2mat) the measurement file is expected to be a ``.mat`` file containing the following fields.
 
 ```bash
 "frequency" # channel frequency                       
