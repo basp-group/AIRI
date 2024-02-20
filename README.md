@@ -10,8 +10,8 @@
     - [Add BM3D Library](#add-bm3d-library)
     - [Add pretrained AIRI denoisers](#add-pretrained-airi-denoisers)
   - [Input Files](#input-files)
-    -[Measurement file](#measurement-file)
-    -[Configuration file](#configuration-file)
+    - [Measurement file](#measurement-file)
+    - [Configuration file](#configuration-file)
   - [Examples](#examples)
 
 ## Description
