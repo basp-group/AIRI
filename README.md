@@ -56,13 +56,13 @@ To properly clone the project with the submodules, you may need to choose one of
 - Cloning the repository from scratch. If you used `https`, issue the following command
 
 ```bash
-git clone --recurse-submodules https://github.com/basp-group/Faceted-HyperSARA.git
+git clone --recurse-submodules https://github.com/basp-group/AIRI.git
 ```
 
 If you are using an SSH key for GitHub rather than a personal token, then you will need to clone the repository as follows instead:
 
 ```bash
-git clone --recurse-submodules git@github.com:basp-group/Faceted-HyperSARA.git
+git clone --recurse-submodules git@github.com:basp-group/AIRI.git
 ```
 
 You will then also need to update the local repository configuration to use this approach for the sub-modules and update the submodules separately as detailed below.
