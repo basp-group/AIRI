@@ -102,9 +102,9 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     fitswrite(single(dirty), fullfile(param_imaging.resultPath, 'dirty.fits'));
     
     % clear unnecessary vars
-    clear param_nufft param_precond param_wproj param_general 
-    clear dirProject imDimx imDimy imPixelSize maxProjBaseline 
-    clear measOpNorm_prime nWimag pathData runID
+    clear param_nufft param_precond param_wproj % param_general 
+    clear dirProject maxProjBaseline % imPixelSize imDimx imDimy
+    clear measOpNorm_prime nWimag % runID pathData
     clear peak_est spatialBandwidth PSF dirty heuristic
     % clear A At G W
     
