@@ -40,15 +40,24 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     [FWOp, BWOp] = util_syn_meas_op_single(A, At, G, W, []);
 
     % compute operator norm
-    fprintf('\nComputing spectral norm of the measurement operator..')
-    param_general.measOpNorm = op_norm(FWOp, BWOp, [imDimy,imDimx], 1e-6, 500, 0);
-    fprintf('\nINFO: measurement op norm %g', param_general.measOpNorm);
+    if isfield(param_general, 'measOpNorm') && ~isempty(param_general.measOpNorm)
+        fprintf('\nINFO: user provides measurement op norm %f', param_general.measOpNorm);
+    else
+        fprintf('\nComputing spectral norm of the measurement operator..')
+        rng(1,'Threefry');
+        [param_general.measOpNorm,~,iter] = op_norm(FWOp, BWOp, [imDimy,imDimx], 1e-8, 1000, 0);
+        fprintf('\nINFO: measurement op norm %f, computed in %d iter', param_general.measOpNorm, iter);
+    end
     % if use primal-dual
     if ismember(param_general.algorithm, {'cairi', 'cpnp-bm3d'})
-        [~, BWOpCmp] = util_syn_meas_op_single(A, At, G, W, [], true);
-        param_general.measOpNormCmp = op_norm(FWOp, BWOpCmp, [imDimy,imDimx], 1e-6, 500, 0);
-        fprintf('\nINFO: measurement op norm with complex BWOp %g', param_general.measOpNormCmp);
-        clear BWOpCmp
+        if isfield(param_general, 'measOpNormCmp') && ~isempty(param_general.measOpNormCmp)
+            fprintf('\nINFO: user provides measurement op norm with complex BWOp %f', param_general.measOpNormCmp);
+        else
+            [~, BWOpCmp] = util_syn_meas_op_single(A, At, G, W, [], true);
+            param_general.measOpNormCmp = op_norm(FWOp, BWOpCmp, [imDimy,imDimx], 1e-8, 1000, 0);
+            fprintf('\nINFO: measurement op norm with complex BWOp %f', param_general.measOpNormCmp);
+            clear BWOpCmp
+        end
     end
     
     % Compute PSF & dirty image
@@ -70,17 +79,23 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     if param_general.flag_data_weighting
         % Calculate the correction factor of the heuristic noise level when
         % data weighting vector is used
-        [FWOp_prime, BWOp_prime] = util_syn_meas_op_single(A, At, G, W, nWimag.^2);
-        measOpNorm_prime = op_norm(FWOp_prime,BWOp_prime,[imDimy,imDimx],1e-6,500,0);
-        heuristic_correction = sqrt(measOpNorm_prime/param_general.measOpNorm);
-        clear FWOp_prime BWOp_prime;
+        if isfield(param_general, 'heuCorrFactor') && ~isempty(param_general.heuCorrFactor)
+            fprintf('\nINFO: user provides heuristic correction factor: %f', param_general.heuCorrFactor);
+            heuristic_correction = param_general.heuCorrFactor;
+        else
+            [FWOp_prime, BWOp_prime] = util_syn_meas_op_single(A, At, G, W, nWimag.^2);
+            rng(1,'Threefry');
+            measOpNorm_prime = op_norm(FWOp_prime,BWOp_prime,[imDimy,imDimx],1e-8,1000,0);
+            heuristic_correction = sqrt(measOpNorm_prime/param_general.measOpNorm);
+            clear FWOp_prime BWOp_prime;
+        end
         heuristic = heuristic .* heuristic_correction;
         fprintf('\nINFO: heuristic noise level after correction: %g', heuristic);
     end
 
     %% Set parameters for imaging and algorithms
     param_algo = util_set_param_algo(param_general, heuristic, peak_est, numel(DATA));
-    param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy,imDimx], runID);
+    param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy,imDimx], pathData, runID);
     
     % save dirty image and PSF
     fitswrite(single(PSF), fullfile(param_imaging.resultPath, 'PSF.fits'));
@@ -111,8 +126,9 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     end
 
     %% Save final results
-    fitswrite(RESULTS.MODEL, fullfile(param_imaging.resultPath, 'FINAL_MODEL.fits'))
-    fitswrite(RESULTS.RESIDUAL, fullfile(param_imaging.resultPath, 'FINAL_RESIDUAL.fits'))
+    fitswrite(single(RESULTS.MODEL), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_model_image.fits')])
+    fitswrite(single(RESULTS.RESIDUAL), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits')])
+    fitswrite(single(RESULTS.RESIDUAL ./ PSFPeak), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits')])
     
     fprintf('\nTHE END\n')
     end
