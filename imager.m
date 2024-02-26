@@ -45,8 +45,8 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     else
         fprintf('\nComputing spectral norm of the measurement operator..')
         rng(1,'Threefry');
-        [param_general.measOpNorm,~,iter] = op_norm(FWOp, BWOp, [imDimy,imDimx], 1e-8, 1000, 0);
-        fprintf('\nINFO: measurement op norm %f, computed in %d iter', param_general.measOpNorm, iter);
+        param_general.measOpNorm = op_norm(FWOp, BWOp, [imDimy,imDimx], 1e-8, 1000, 0);
+        fprintf('\nINFO: measurement op norm %f', param_general.measOpNorm);
     end
     % if use primal-dual
     if ismember(param_general.algorithm, {'cairi', 'cpnp-bm3d'})
