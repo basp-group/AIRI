@@ -121,7 +121,6 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         case {'airi', 'upnp-bm3d'}
             RESULTS = solver_imaging_forward_backward(DATA, FWOp, BWOp, param_imaging, param_algo);
         case {'cairi', 'cpnp-bm3d'}
-            % TODO
             RESULTS = solver_imaging_primal_dual(DATA, FWOp, BWOp, param_imaging, param_algo);
     end
 
