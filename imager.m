@@ -106,7 +106,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     clear dirProject imDimx imDimy imPixelSize maxProjBaseline 
     clear measOpNorm_prime nWimag pathData runID
     clear peak_est spatialBandwidth PSF dirty heuristic
-    clear A At G W
+    % clear A At G W
     
     %% INFO
     fprintf("\n________________________________________________________________\n")
@@ -125,9 +125,9 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     end
 
     %% Save final results
-    fitswrite(single(RESULTS.MODEL), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_model_image.fits')])
-    fitswrite(single(RESULTS.RESIDUAL), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits')])
-    fitswrite(single(RESULTS.RESIDUAL ./ PSFPeak), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits')])
+    fitswrite(single(RESULTS.MODEL), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_model_image.fits']))
+    fitswrite(single(RESULTS.RESIDUAL), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits']))
+    fitswrite(single(RESULTS.RESIDUAL ./ PSFPeak), fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits']))
     
     fprintf('\nTHE END\n')
     end
