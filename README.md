@@ -115,7 +115,7 @@ Instructions to extract a single-channel measurment file from a Measurement Set 
 Note that the measurement file is of the same format as the input expected in the library [Faceted Hypersara](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 
 ### Configuration (parameter) file
-The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms.
+The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `./config/`. 
 
 ## Examples
 The scripts that used to generate the reconstructions shown in Figure 3.(g)-(i) in [1] can be found in the folder ``examples``. To launch these tests, please download the simulated measurements from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0) and move the folder ``simulated_measurements`` folder inside ``./examples``. Then change your current directory to ``./examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder ``./results/3c353_dt8_seed0``. The groundtruth images of these measurements can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/mct058u0ww9301vrsgeqj/h?rlkey=hz8py389nay5jmqgzxz4knqja&dl=0).
