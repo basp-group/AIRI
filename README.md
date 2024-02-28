@@ -17,18 +17,18 @@
 
 ## Description
 
-``AIRI`` and its constraint variant ``cAIRI`` are Plug-and-Play (PnP) algorithms used to solve the inverse imaging problem. By inserting carefully trained AIRI denoisers into the proximal splitting algorithms, one waives the one waives the computational complexity of optimisation algorithms induced by sophisticated image priors, and the sub-optimality of handcrafted priors compared to Deep Neural Networks. This repository provides a straightforward MATLAB implementation for the algorithms ``AIRI`` and ``cAIRI`` to solve small scale monochromatic astronomical imaging problem. Additionally, it also contains the implementation of unconstrained PnP and constrained PnP with the [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) denoiser as regularizer. The details of these algorithms are discussed in the following papers.
+``AIRI`` and its constraint variant ``cAIRI`` are Plug-and-Play (PnP) algorithms used to solve the inverse imaging problem. By inserting carefully trained AIRI denoisers into the proximal splitting algorithms, one waives the computational complexity of optimisation algorithms induced by sophisticated image priors, and the sub-optimality of handcrafted priors compared to Deep Neural Networks. This repository provides a straightforward MATLAB implementation for the algorithms ``AIRI`` and ``cAIRI`` to solve small scale monochromatic astronomical imaging problem. Additionally, it also contains the implementation of unconstrained PnP and constrained PnP with the [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) denoiser as a regularizer. The details of these algorithms are discussed in the following papers.
 
 >[1] Terris, M., Tang, C., Jackson, A., & Wiaux, Y. (2023). [Plug-and-play imaging with model uncertainty quantification in radio astronomy](https://arxiv.org/abs/2312.07137v2). *arXiv preprint arXiv:2312.07137.* 
 >
->[2] Terris, M., Dabbech, A., Tang, C., & Wiaux, Y. (2023). [Image reconstruction algorithms in radio interferometry: From handcrafted to learned regularization denoisers](https://doi.org/10.1093/mnras/stac2672). *Monthly Notices of the Royal Astronomical Society, 518*(1), 604-622.
+>[2] Terris, M., Dabbech, A., Tang, C., & Wiaux, Y. (2023). [Image reconstruction algorithms in radio interferometry: From handcrafted to learned regularization denoisers](https://doi.org/10.1093/mnras/stac2672). *MNRAS, 518*(1), 604-622.
 
 ## Dependencies 
 
 This repository relies on two auxiliary submodules :
 
-1. [`RI-measurement-operator`](https://github.com/basp-group/RI-measurement-operator) for the formation of the radio-interferometric measurement operator;
-2. [`BM3D`](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) for the implementation of the Block-matching and 3D filtering (BM3D) algorithm.
+1. [`RI-measurement-operator`](https://github.com/basp-group/RI-measurement-operator) for the formation of the radio-interferometric measurement operator [3,4,5];
+2. [`BM3D`](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) for the implementation of the Block-matching and 3D filtering (BM3D) algorithm [6].
 
 These modules contain codes associated with the following publications
 
@@ -41,8 +41,6 @@ These modules contain codes associated with the following publications
 >[6] Mäkinen, Y., Azzari, L., & Foi, A. (2020). [Collaborative filtering of correlated noise: Exact transform-domain variance for improved shrinkage and patch matching](https://doi.org/10.1109/TIP.2020.3014721). *IEEE TIP, 29*, 8339-8354.
 
 ## Installation
-
-To properly clone the project with the submodules, you may need to choose one of following set of instructions.
 
 ### Cloning the project
 
@@ -77,10 +75,10 @@ git submodule update --init --recursive # update the content of the submodules
 git submodule update --remote --merge # fetch and merge latest state of the submodule
 ```
 
-### Add BM3D Library
-The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded on its webpage or directly though [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, please copy the folder ``bm3d`` in the folder to the folder ``lib`` into this repository.
+### BM3D Library
+The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in  ``./lib/`` of this repository.
 
-If you are working on macOS, you may need to run the following commands to remove the system restrictions on Matlab executable files in the BM3D library.
+If you are working on macOS, you may need to run the following commands to remove the system restrictions on MATLAB executable files in the BM3D library.
 
 ```bash
 # go to the folder of the bm3d library
@@ -95,8 +93,8 @@ spctl --add bm3d_wiener_colored_noise.mexmaci64
 spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
-### Add pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). Afterwards, please move the folders ``shelf_oaid`` and ``shelf_mrid`` to the folder ``airi_denoisers`` in the repository.
+###  Pretrained AIRI denoisers
+If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should move the folders ``shelf_oaid`` and ``shelf_mrid`` to the folder ``airi_denoisers`` of this repository.
 
 ## Input Files
 ### Measurement file
@@ -113,7 +111,7 @@ The current code takes as input data a measurement file in ``.mat`` format conta
 "maxProjBaseline" % scalar, maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
 ```
 
-Instructions to extract single-channel measurment file from a Measurement Set are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
+Instructions to extract a single-channel measurment file from a Measurement Set are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
 Note that the measurement file is of the same format as the input expected in the library [Faceted Hypersara](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 
 ### Configuration (parameter) file
