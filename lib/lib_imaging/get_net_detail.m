@@ -9,7 +9,7 @@ function [net_pth, scaling_factor, peakMin, peakMax] = get_net_detail(shelf_pth,
     
     % scaling_factor : Defined as noise level of choosen network divided by heuristic noise level
     
-    fprintf('\n\nSHELF *** Heuristic noise level after scale by peak: %g', heuristic/alpha);
+    fprintf('\n\nSHELF *** Inverse of the estimated target dynamic range: %g', heuristic/alpha);
     
     shelf = readtable(shelf_pth,'Format','%f%s','ReadVariableNames',false);
     noise_list = shelf{:,1};
