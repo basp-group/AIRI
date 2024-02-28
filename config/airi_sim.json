@@ -1,7 +1,8 @@
 [
     {   "__comment": "Main",
         "main": {
-            "msFile": [],
+            "srcName": [],
+            "dataFile": [],
             "resultPath": [],
             "algorithm": "airi",
             "imDimx": 512,

@@ -11,7 +11,11 @@ function param_imaging = util_set_param_imaging(param_general, param_algo, imDim
         mkdir(resultPath)
     end
     % src name
-    [~, srcname, ~] = fileparts(pathData);
+    if isfield(param_general, 'srcName') && ~isempty(param_general.srcName)
+        srcname = param_general.srcName
+    else
+        [~, srcname, ~] = fileparts(pathData);
+    end
     % set subfolder name
     switch param_general.algorithm
         case 'airi'
