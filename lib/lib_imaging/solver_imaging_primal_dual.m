@@ -26,9 +26,9 @@ if flag_airi
         peak_curr = param_algo.imPeakEst;
     end
 
-    algo_print_name = '  CAIRI  ';
+    algo_print_name = '  cAIRI  ';
 else
-    algo_print_name = 'CPNP-BM3D';
+    algo_print_name = 'cPNP-BM3D';
 end
 
 %% ALGORITHM

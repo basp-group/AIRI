@@ -26,7 +26,7 @@ if flag_airi
 
     algo_print_name = '   AIRI  ';
 else
-    algo_print_name = 'UPNP-BM3D';
+    algo_print_name = 'uPNP-BM3D';
 end
 
 %% ALGORITHM
