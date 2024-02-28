@@ -113,7 +113,7 @@ The current code takes as input data a measurement file in ``.mat`` format conta
 "maxProjBaseline" % scalar, maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
 ```
 
-Instructions to extract single-channel measurment file from a Measurement Set are provided in the [Readme File](https://github.com/basp-group/uSARA/blob/main/pyxisMs2mat/README.md).
+Instructions to extract single-channel measurment file from a Measurement Set are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
 Note that the measurement file is of the same format as the input expected in the library [Faceted Hypersara](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 
 ### Configuration (parameter) file
