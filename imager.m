@@ -111,7 +111,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     %% Save final results
     fitswrite(RESULTS.MODEL, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_model_image.fits']))
     fitswrite(RESULTS.RESIDUAL, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits']))
-    fitswrite(RESULTS.RESIDUAL ./ PSFPeak, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits']))
+    fitswrite(RESULTS.RESIDUAL ./ PSFPeak, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image_normalised.fits']))
     
     fprintf('\nTHE END\n')
     end
