@@ -9,19 +9,23 @@
             "imDimy": 512,
             "imPixelSize": [],
             "superresolution": 1.0,
-            "dirProject": [],
-            "ncpus": [],
+            "groundtruth": [],
             "runID": []
         }
     },
 
-    {   "__comment": "General flags",
+    {   "__comment": "General",
 
         "flag": {  
             "flag_comment_1": "flags",  
             "flag_imaging": true,    
             "flag_data_weighting": true,
             "verbose": true
+        },
+
+        "other":{
+            "dirProject": [],
+            "ncpus": []
         }
      },
      

@@ -16,9 +16,13 @@ arguments
     NameValueArgs.dataFile (1,:) {mustBeFile}
     NameValueArgs.resultPath (1,:) {mustBeText}
     NameValueArgs.algorithm (1,:) {mustBeMember(NameValueArgs.algorithm,{'airi','cairi','upnp-bm3d','cpnp-bm3d'})}
+    NameValueArgs.imDimx (1,1) {mustBePositive, mustBeInteger}
+    NameValueArgs.imDimy (1,1) {mustBePositive, mustBeInteger}
     NameValueArgs.dnnShelfPath (1,:) {mustBeFile}
     NameValueArgs.imPixelSize (1,1) {mustBePositive}
-    NameValueArgs.runID (1,1) {mustBeNonnegative, mustBeInteger}=0
+    NameValueArgs.superresolution (1,1) {mustBePositive}
+    NameValueArgs.groundtruth (1,:) {mustBeFile}
+    NameValueArgs.runID (1,1) {mustBeNonnegative, mustBeInteger}
 end
 
 %% Parsing json file
@@ -41,11 +45,23 @@ end
 if isfield(NameValueArgs, 'resultPath')
     main.resultPath = NameValueArgs.resultPath;
 end
+if isfield(NameValueArgs, 'imDimx')
+    main.imDimx = NameValueArgs.imDimx;
+end
+if isfield(NameValueArgs, 'imDimy')
+    main.imDimy = NameValueArgs.imDimy;
+end
 if isfield(NameValueArgs, "algorithm")
     main.algorithm = NameValueArgs.algorithm;
 end
 if isfield(NameValueArgs, 'imPixelSize')
     main.imPixelSize = NameValueArgs.imPixelSize;
+end
+if isfield(NameValueArgs, 'superresolution')
+    main.superresolution = NameValueArgs.superresolution;
+end
+if isfield(NameValueArgs, 'groundtruth')
+    main.groundtruth = NameValueArgs.groundtruth;
 end
 if isfield(NameValueArgs, 'runID')
     main.runID = NameValueArgs.runID;
@@ -55,6 +71,10 @@ disp(main)
 % flag
 param_flag = cell2struct(struct2cell(config{2, 1}.flag), fieldnames(config{2, 1}.flag));
 disp(param_flag)
+
+% other parameters
+param_other = cell2struct(struct2cell(config{2, 1}.other), fieldnames(config{2, 1}.other));
+disp(param_other)
 
 % solver
 switch main.algorithm
@@ -91,10 +111,11 @@ param_solver.algorithm = main.algorithm;
 disp(param_solver)
 
 % full param list
-param_general = cell2struct([struct2cell(param_flag); struct2cell(param_solver)], ...
-    [fieldnames(param_flag); fieldnames(param_solver)]);
+param_general = cell2struct([struct2cell(param_flag); struct2cell(param_other); struct2cell(param_solver)], ...
+    [fieldnames(param_flag); fieldnames(param_other); fieldnames(param_solver)]);
 param_general.resultPath = main.resultPath;
 param_general.srcName = main.srcName;
+param_general.groundtruth = main.groundtruth;
 
 % set fields to default value if missing
 % set main path for the program
