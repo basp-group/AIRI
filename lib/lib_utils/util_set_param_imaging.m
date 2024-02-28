@@ -59,6 +59,9 @@ function param_imaging = util_set_param_imaging(param_general, param_algo, imDim
     param_imaging.flag_imaging = param_general.flag_imaging;
     param_imaging.verbose = param_general.verbose;
 
+    % groundtruth image
+    param_imaging.groundtruth = param_general.groundtruth;
+
     % run ID
     param_imaging.runID = runID;
 
