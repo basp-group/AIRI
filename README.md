@@ -76,7 +76,7 @@ git submodule update --remote --merge # fetch and merge latest state of the subm
 ```
 
 ### BM3D Library
-The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in  ``./lib/`` of this repository.
+The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in  ``./lib/`` folder of this repository.
 
 If you are working on macOS, you may need to run the following commands to remove the system restrictions on MATLAB executable files in the BM3D library.
 
@@ -94,7 +94,7 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
 ###  Pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should move the folders ``shelf_oaid`` and ``shelf_mrid`` to the folder ``airi_denoisers`` of this repository.
+If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should copy the folders ``shelf_oaid`` and ``shelf_mrid`` in ``./airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DDNs in the `.csv` file of the denoiser shelf.
 
 ## Input Files
 ### Measurement file
