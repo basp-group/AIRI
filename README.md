@@ -64,9 +64,11 @@ You can then clone the repository with all the submodules as follows:
 git clone --recurse-submodules git@github.com:basp-group/AIRI.git
 ```
 
+The full path to the AIRI repository is referred to as `$AIRI` in the rest of the documentation.
+
 ### Updating submodules (optional)
 
-To update the submodules from your local `AIRI` repository, run the follwing commands: 
+To update the submodules from your local `$AIRI` repository, run the follwing commands: 
 
 ```bash
 git pull
@@ -76,13 +78,13 @@ git submodule update --remote --merge # fetch and merge latest state of the subm
 ```
 
 ### BM3D Library
-The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in  ``./lib/`` folder of this repository.
+The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in  ``$AIRI/lib/`` folder of this repository.
 
 If you are working on macOS, you may need to run the following commands to remove the system restrictions on MATLAB executable files in the BM3D library.
 
 ```bash
 # go to the folder of the bm3d library
-cd ./lib/bm3d
+cd $AIRI/lib/bm3d
 
 # remove files from quarantine list
 xattr -d com.apple.quarantine bm3d_wiener_colored_noise.mexmaci64
@@ -94,7 +96,7 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
 ###  Pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should copy the folders ``shelf_oaid`` and ``shelf_mrid`` in ``./airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DDNs in the `.csv` file of the denoiser shelf.
+If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should copy the folders ``shelf_oaid`` and ``shelf_mrid`` in ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DDNs in the `.csv` file of the denoiser shelf.
 
 ## Input Files
 ### Measurement file
@@ -111,11 +113,14 @@ The current code takes as input data a measurement file in ``.mat`` format conta
 "maxProjBaseline" % scalar, maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
 ```
 
-Instructions to extract a single-channel measurment file from a Measurement Set are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
+The sample measurement files are avaiable in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0).
+
+To extract the measurement file from Measurement Set Tables (MS), you can use the utility Python script `$AIRI/pyxisMs2mat/pyxis_ms2mat.py`. Instructions are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
+
 Note that the measurement file is of the same format as the input expected in the library [Faceted Hypersara](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 
 ### Configuration (parameter) file
-The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `./config/`. 
+The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `$AIRI/config/`. 
 
 ## Examples
-The scripts that used to generate the reconstructions shown in Figure 3.(g)-(i) in [1] can be found in the folder ``examples``. To launch these tests, please download the simulated measurements from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0) and move the folder ``simulated_measurements`` folder inside ``./examples``. Then change your current directory to ``./examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder ``./results/3c353_dt8_seed0``. The groundtruth images of these measurements can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/mct058u0ww9301vrsgeqj/h?rlkey=hz8py389nay5jmqgzxz4knqja&dl=0).
+The scripts that used to generate the reconstructions shown in Figure 3.(g)-(i) in [1] can be found in the folder ``$AIRI/examples``. To launch these tests, please download the simulated measurements from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0) and move the folder ``simulated_measurements`` folder inside ``$AIRI/examples``. Then change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder ``$AIRI/results/3c353_dt8_seed0``. The groundtruth images of these measurements can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/mct058u0ww9301vrsgeqj/h?rlkey=hz8py389nay5jmqgzxz4knqja&dl=0).
