@@ -114,11 +114,11 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     fitswrite(RESULTS.RESIDUAL ./ PSFPeak, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image_normalised.fits']))
 
     %% Final metrics
-    fprintf('\nINFO: The std of the residual dirty image %g', std(RESULTS.RESIDUAL, 0, 'all'))
+    fprintf('\nINFO: The standard deviation of the final residual dirty image %g', std(RESULTS.RESIDUAL, 0, 'all'))
     try
         gdth_img = fitsread(param_imaging.groundtruth);
         rsnr = 20*log10( norm(gdth_img(:)) / norm(RESULTS.MODEL(:) - gdth_img(:)) );
-        fprintf('\nINFO: The signal-to-noise ratio of the reconstructed image %f dB', rsnr)
+        fprintf('\nINFO: The signal-to-noise ratio of the final reconstructed image %f dB', rsnr)
     end
     
     fprintf('\nTHE END\n')
