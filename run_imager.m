@@ -141,9 +141,9 @@ else
     param_general.superresolution = 1.0;
 end
 % compute resources
-if isfield(main,'ncpus') && ~isempty(main.ncpus)
+if isfield(param_general,'ncpus') && ~isempty(param_general.ncpus)
     navail=maxNumCompThreads;
-    nrequested = maxNumCompThreads(main.ncpus);
+    nrequested = maxNumCompThreads(param_general.ncpus);
     fprintf("\nINFO: Available CPUs: %d. Requested CPUs: %d\n",navail , maxNumCompThreads)
 else
     fprintf("\nINFO: Available CPUs: %d.\n", maxNumCompThreads)
