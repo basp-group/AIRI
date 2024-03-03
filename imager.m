@@ -100,6 +100,11 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     disp(param_imaging)
     fprintf("________________________________________________________________\n")
     
+    if ~param_imaging.flag_imaging
+        fprintf('\nTHE END\n')
+        return
+    end
+
     %% Imaging
     switch param_algo.algorithm
         case {'airi', 'upnp-bm3d'}

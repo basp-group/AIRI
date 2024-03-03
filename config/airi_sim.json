@@ -19,8 +19,7 @@
         "flag": {  
             "flag_comment_1": "flags",  
             "flag_imaging": true,    
-            "flag_data_weighting": true,
-            "verbose": true
+            "flag_data_weighting": true
         },
 
         "other":{
@@ -32,55 +31,54 @@
      {   "__comment": "Denoisers",
 
         "airi": {  
-            "denoiser_comment_1": "airi params",      
+            "denoiser_comment_1": "airi params",
+            "heuNoiseScale": 1.0,
             "dnnShelfPath": "./airi_denoisers/shelf_oaid.csv",
-            "imMaxItr": 6000,
-            "imVarTol": 8e-5,
             "imPeakEst": [],
-            "dnnAdaptivePeak": true
+            "dnnAdaptivePeak": true,
+            "dnnApplyTransform": true
         },
 
         "airi_default": {
             "denoiser_comment_2": "airi default params", 
-            "imMinItr": 200,
+            "imMinItr": 100,
+            "imMaxItr": 6000,
+            "imVarTol": 8e-5,
             "itrSave": 2000,
-            "heuNoiseScale": 1.0,
-            "dnnApplyTransform": true,
             "dnnAdaptivePeakTolMax": 1e-1,
             "dnnAdaptivePeakTolMin": 1e-3,
             "dnnAdaptivePeakTolStep": 0.1
         },
 
         "upnp_bm3d": {  
-            "denoiser_comment_1": "upnp-bm3d params",      
-            "dirBM3DLib": [],
-            "imMaxItr": 1200,
-            "imVarTol": 2e-4,
-            "imPeakEst": []
+            "denoiser_comment_1": "upnp-bm3d params",
+            "heuNoiseScale": 2.0
         },
 
         "upnp_bm3d_default": {
             "denoiser_comment_2": "upnp-bm3d default params", 
+            "dirBM3DLib": [],
             "imMinItr": 100,
-            "itrSave": 500,
-            "heuNoiseScale": 2.0
+            "imMaxItr": 1200,
+            "imVarTol": 2e-4,
+            "itrSave": 500
         },
 
         "cairi": {  
-            "denoiser_comment_1": "airi params",      
+            "denoiser_comment_1": "airi params", 
+            "heuNoiseScale": 1.0,     
             "dnnShelfPath": "./airi_denoisers/shelf_oaid.csv",
-            "imMaxItr": 4000,
-            "imVarTol": 8e-5,
             "imPeakEst": [],
-            "dnnAdaptivePeak": true
+            "dnnAdaptivePeak": true,
+            "dnnApplyTransform": true
         },
 
         "cairi_default": {
             "denoiser_comment_2": "airi default params", 
             "imMinItr": 100,
+            "imMaxItr": 4000,
+            "imVarTol": 8e-5,
             "itrSave": 2000,
-            "heuNoiseScale": 1.0,
-            "dnnApplyTransform": true,
             "dnnAdaptivePeakTolMax": 1e-1,
             "dnnAdaptivePeakTolMin": 1e-3,
             "dnnAdaptivePeakTolStep": 0.1
@@ -88,18 +86,16 @@
 
         "cpnp_bm3d": {  
             "denoiser_comment_1": "upnp-bm3d params",      
-            "dirBM3DLib": [],
-            "imMaxItr": 1200,
-            "imVarTol": 2e-4,
-            "imPeakEst": []
+            "heuNoiseScale": 3.0
         },
 
         "cpnp_bm3d_default": {
             "denoiser_comment_2": "upnp-bm3d default params", 
+            "dirBM3DLib": [],
             "imMinItr": 100,
-            "itrSave": 500,
-            "heuNoiseScale": 3.0
+            "imMaxItr": 1200,
+            "imVarTol": 2e-4,
+            "itrSave": 500
         }
-
     }
 ]

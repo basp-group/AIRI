@@ -46,7 +46,7 @@ These modules contain codes associated with the following publications
 
 To clone the project with the required submodules, you may consider one of the following set of instructions.
 
-- Cloning the project using `https`:  you should run the following command
+- Cloning the project using `https`: you should run the following command
 ```bash
 git clone --recurse-submodules https://github.com/basp-group/AIRI.git
 ```
@@ -68,7 +68,7 @@ The full path to the AIRI repository is referred to as `$AIRI` in the rest of th
 
 ### Updating submodules (optional)
 
-To update the submodules from your local `$AIRI` repository, run the follwing commands: 
+To update the submodules from your local `$AIRI` repository, run the following commands: 
 
 ```bash
 git pull
@@ -78,7 +78,7 @@ git submodule update --remote --merge # fetch and merge latest state of the subm
 ```
 
 ### BM3D Library
-The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in  ``$AIRI/lib/`` folder of this repository.
+The [BM3D](https://webpages.tuni.fi/foi/GCF-BM3D/index.html) MATLAB library v.3.0.9 can be downloaded from its webpage or directly using [this link](https://webpages.tuni.fi/foi/GCF-BM3D/bm3d_matlab_package_3.0.9.zip). After unpacking the downloaded zip file, the folder ``bm3d`` inside the folder should be copied in ``$AIRI/lib/`` folder of this repository.
 
 If you are working on macOS, you may need to run the following commands to remove the system restrictions on MATLAB executable files in the BM3D library.
 
@@ -96,7 +96,7 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
 ###  Pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should copy the folders ``shelf_oaid`` and ``shelf_mrid`` in ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DDNs in the `.csv` file of the denoiser shelf.
+If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should copy the folders ``shelf_oaid`` and ``shelf_mrid`` in ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DNNs in the `.csv` file of the denoiser shelf.
 
 ## Input Files
 ### Measurement file
@@ -117,7 +117,7 @@ The sample measurement files are avaiable in this (temporary) [Dropbox link](htt
 
 To extract the measurement file from Measurement Set Tables (MS), you can use the utility Python script `$AIRI/pyxisMs2mat/pyxis_ms2mat.py`. Instructions are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
 
-Note that the measurement file is of the same format as the input expected in the library [Faceted Hypersara](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
+Note that the measurement file is of the same format as the input expected in the library [Faceted-HyperSARA](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 
 ### Configuration (parameter) file
 The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `$AIRI/config/`. 
