@@ -38,7 +38,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
         - ``dnnApplyTransform``(optional): Apply random rotation and flipping before denoising and undo the transform after denoising or not. The default value is true.
         - ``imMinItr``(optional): The minimum number of iterations of the algorithm. The default value is ``200``.
         - ``imMaxItr``(optional): The minimum number of iterations of the algorithm. The default value is ``2000``.
-        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended.
+        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended. The default value is ``1e-4``.
         - ``itrSave``(optional): The interval of iterations for saving intermediate results. The default number is ``500``.
         - ``dnnAdaptivePeakTolMax``(optional): The initial relative peak value variation tolerance for the adaptive denoiser selection scheme. The default value is ``0.1``.
         - ``dnnAdaptivePeakTolMin``(optional): The minimum relative peak value variation tolerance for the adaptive denoiser selection scheme. The default value is ``1e-3``.
@@ -51,7 +51,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
         - ``dirBM3DLib``(optional): The path of the BM3D MATLAB library. The default path is ``$AIRI/lib/bm3d``.
         - ``imMinItr``(optional): The minimum number of iterations of the algorithm. The default value is ``200``.
         - ``imMaxItr``(optional): The minimum number of iterations of the algorithm. The default value is ``2000``.
-        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended.
+        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended. The default value is ``1e-4``.
         - ``itrSave``(optional): The interval of iterations for saving intermediate results. The default number is ``500``.
 
     - ``cairi`` and ``cairi_default``
@@ -64,7 +64,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
         - ``dnnApplyTransform``(optional): Apply random rotation and flipping before denoising and undo the transform after denoising or not. The default value is true.
         - ``imMinItr``(optional): The minimum number of iterations of the algorithm. The default value is ``200``.
         - ``imMaxItr``(optional): The minimum number of iterations of the algorithm. The default value is ``2000``.
-        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended.
+        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended. The default value is ``1e-4``.
         - ``itrSave``(optional): The interval of iterations for saving intermediate results. The default number is ``500``.
         - ``dnnAdaptivePeakTolMax``(optional): The initial relative peak value variation tolerance for the adaptive denoiser selection scheme. The default value is ``0.1``.
         - ``dnnAdaptivePeakTolMin``(optional): The minimum relative peak value variation tolerance for the adaptive denoiser selection scheme. The default value is ``1e-3``.
@@ -77,7 +77,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
         - ``dirBM3DLib``(optional): The path of the BM3D MATLAB library. The default path is ``$AIRI/lib/bm3d``.
         - ``imMinItr``(optional): The minimum number of iterations of the algorithm. The default value is ``200``.
         - ``imMaxItr``(optional): The minimum number of iterations of the algorithm. The default value is ``2000``.
-        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended.
+        - ``imVarTol``(optional): The image variation tolerance of the algorithm. If the relative variation of the reconstructed images from two consecutive iterations is smaller than the value of ``imVarTol`` and the algorithm has run more iterations than ``imMinItr``, then the imaging process will be ended. The default value is ``1e-4``.
         - ``itrSave``(optional): The interval of iterations for saving intermediate results. The default number is ``500``.
 
     
