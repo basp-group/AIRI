@@ -32,7 +32,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
         
         If the imaging ``algorithm``is specified as ``airi``, then the fields in the section will be loaded.
         - ``heuNoiseScale``(optional): The factor that will be applied to the heuristic noise level. The default value is ``1.0``.
-        - ``dnnShelfPath``: The path of the ``.csv`` file that defines a shelf of denoisers. The ``.csv`` file has two columns. The first column is the training noise level of a denoiser and the second column is the path to the denoiser. The denoiser should be in ``.onnx`` format. Two sample ``.csv`` files are provided in ``$AIRI\airi_denoisers``.
+        - ``dnnShelfPath``: The path of the ``.csv`` file that defines a shelf of denoisers. The ``.csv`` file has two columns. The first column is the training noise level of a denoiser and the second column is the path to the denoiser. The denoiser should be in ``.onnx`` format. Two sample ``.csv`` files are provided in ``$AIRI/airi_denoisers``.
         - ``imPeakEst``(optional): The estimated maximum intensity of the reconstructions. If this field is empty, the default value is the maximum intensity of the back-projected (dirty) image normalised by the peak value of the PSF.
         - ``dnnAdaptivePeak``(optional): Enable the adaptive denoiser selection scheme or not. The details of this scheme can be found in [[1]](https://arxiv.org/abs/2312.07137v2). The default value is true.
         - ``dnnApplyTransform``(optional): Apply random rotation and flipping before denoising and undo the transform after denoising or not. The default value is true.
@@ -58,7 +58,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
 
         If the imaging ``algorithm``is specified as ``cairi``, then the fields in the section will be loaded.
         - ``heuNoiseScale``(optional): The factor that will be applied to the heuristic noise level. The default value is ``1.0``.
-        - ``dnnShelfPath``: The path of the ``.csv`` file that defines a shelf of denoisers. The ``.csv`` file has two columns. The first column is the training noise level of a denoiser and the second column is the path to the denoiser. The denoiser should be in ``.onnx`` format. Two sample ``.csv`` files are provided in ``$AIRI\airi_denoisers``.
+        - ``dnnShelfPath``: The path of the ``.csv`` file that defines a shelf of denoisers. The ``.csv`` file has two columns. The first column is the training noise level of a denoiser and the second column is the path to the denoiser. The denoiser should be in ``.onnx`` format. Two sample ``.csv`` files are provided in ``$AIRI/airi_denoisers``.
         - ``imPeakEst``(optional): The estimated maximum intensity of the reconstructions. If this field is empty, the default value is the maximum intensity of the back-projected (dirty) image normalised by the peak value of the PSF.
         - ``dnnAdaptivePeak``(optional): Enable the adaptive denoiser selection scheme or not. The details of this scheme can be found in [[1]](https://arxiv.org/abs/2312.07137v2). The default value is true.
         - ``dnnApplyTransform``(optional): Apply random rotation and flipping before denoising and undo the transform after denoising or not. The default value is true.
