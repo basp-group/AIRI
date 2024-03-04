@@ -103,7 +103,7 @@ for iter = 1 : param_algo.imMaxItr
         data_fidelity = norm(diff(:));
 
         % print info
-        fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec., dual update %f sec, current iteration %f sec.", ...
+        fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec, dual update %f sec, current iteration %f sec.", ...
             iter, im_relval, data_fidelity, t_primal, t_dual, t_iter);
 
         if data_fidelity < param_algo.epsilon
@@ -111,7 +111,7 @@ for iter = 1 : param_algo.imMaxItr
         end
     else
         % print info
-        fprintf("\n\nIter %d: relative variation %g, primal update %f sec., dual update %f sec, current iteration %f sec.", ...
+        fprintf("\n\nIter %d: relative variation %g, primal update %f sec, dual update %f sec, current iteration %f sec.", ...
             iter, im_relval, t_primal, t_dual, t_iter);
     end
 
@@ -146,7 +146,7 @@ for iter = 1 : param_algo.imMaxItr
 end
 t_total = toc(tStart_total);
 
-fprintf("\n\nImaging finished in %f sec., total number of iterations %d\n\n", t_total, iter);
+fprintf("\n\nImaging finished in %f sec, total number of iterations %d\n\n", t_total, iter);
 fprintf('\n**************************************\n')
 fprintf('********** END OF ALGORITHM **********')
 fprintf('\n**************************************\n')

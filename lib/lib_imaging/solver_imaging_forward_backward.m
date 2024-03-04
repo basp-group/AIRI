@@ -89,7 +89,7 @@ for iter = 1 : param_algo.imMaxItr
     % print info
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
     % print info
-    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec., denoising step %f sec, current iteration %f sec.", ...
+    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec, denoising step %f sec, current iteration %f sec.", ...
         iter, im_relval, t_grad, t_den, t_iter);
 
     % stopping creteria
@@ -128,7 +128,7 @@ for iter = 1 : param_algo.imMaxItr
 end
 t_total = toc(tStart_total);
 
-fprintf("\n\nImaging finished in %f sec., total number of iterations %d\n\n", t_total, iter);
+fprintf("\n\nImaging finished in %f sec, total number of iterations %d\n\n", t_total, iter);
 fprintf('\n**************************************\n')
 fprintf('********** END OF ALGORITHM **********')
 fprintf('\n**************************************\n')
