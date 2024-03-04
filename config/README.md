@@ -25,7 +25,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
 
     - ``other``
         - ``dirProject``(optional): The path of the local AIRI repository. If this field is empty, the default value is MATLAB's current running path.
-        - ``ncpus``(optional): Number of cpus that will be used for imaging tasks. If it is empty, the script will try to use all the available CPUs.
+        - ``ncpus``(optional): Number of CPUs that will be used for imaging tasks. If it is empty, the script will try to use all the available CPUs.
 
 3. Denoiser
     - ``airi`` and ``airi_default``
