@@ -13,7 +13,7 @@
   - [Input Files](#input-files)
     - [Measurement file](#measurement-file)
     - [Configuration file](#configuration-parameter-file)
-  - [Examples](#examples)
+  - [Usage and Examples](#usage-and-examples)
 
 ## Description
 
@@ -113,14 +113,32 @@ The current code takes as input data a measurement file in ``.mat`` format conta
 "maxProjBaseline" % scalar, maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
 ```
 
-An example measurement file ``3c353_meas_dt_1_seed_0.mat`` is provided in the folder ``$AIRI$/data``.
+An example measurement file ``3c353_meas_dt_1_seed_0.mat`` is provided in the folder ``$AIRI$/data``. The full synthetic test set used in [1] can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0).
 
 To extract the measurement file from Measurement Set Tables (MS), you can use the utility Python script `$AIRI/pyxisMs2mat/pyxis_ms2mat.py`. Instructions are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
 
 Note that the measurement file is of the same format as the input expected in the library [Faceted-HyperSARA](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 
 ### Configuration (parameter) file
-The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `$AIRI/config/`. 
+The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `$AIRI/config/`. An example `airi_sim.json` is provided in `$AIRI/config/`. A detailed description about the fields in the configuration file is provided [here](https://github.com/basp-group/AIRI/blob/main/config/README.md).
 
-## Examples
-The scripts that used to generate the reconstructions shown in Figure 3.(g)-(i) in [1] can be found in the folder ``$AIRI/examples``. To launch these tests, please download the simulated measurements from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0) and move the folder ``simulated_measurements`` folder inside ``$AIRI/examples``. Then change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder ``$AIRI/results/3c353_dt8_seed0``. The groundtruth images of these measurements can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/mct058u0ww9301vrsgeqj/h?rlkey=hz8py389nay5jmqgzxz4knqja&dl=0).
+## Usage and Examples
+The algorithms can be launched through function `run_imager()`. The mandatory input argument of this function is the path of configuration file discussed in the above section. It also accepts 11 optional name-argument pairs which will overwrite corresponding fields in the configuration file.
+
+```MATLAB
+run_imager(pth_config, ... % path of the configuration file
+    'srcName', srcName, ... % name for the reconstruction task
+    'dataFile', dataFile, ... % path of the measurement file
+    'resultPath', resultPath, ... % path where the result folder will be created
+    'algorithm', algorithm, ... % algorithm that will be used for imaging
+    'imDimx', imDimx, ... % horizontal number of pixels in the final reconstructed image
+    'imDimy', imDimy, ... % vertical number of pixels in the final reconstructed image
+    'dnnShelfPath', dnnShelfPath, ... % path of the denoiser shelf configuration file
+    'imPixelSize', imPixelSize, ... % pixel size of the reconstructed image in the unit of arcsec
+    'superresolution', superresolution, ... % ratio between the expected maximum projection baseline and the one given in the measurement file
+    'groundtruth', groundtruth, ... % path of the groundtruth image
+    'runID', runID ... % identification number of the current task
+  )
+```
+
+An example script is provided in the folder `$AIRI/example`. This script will reconstruct the groundtruth image `$AIRI/data/3c353_gdth.fits` from the measurement file `$uSARA/data/3c353_meas_dt_1_seed_0.mat`.  To launch this test, please change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder `$AIRI/results/`.
