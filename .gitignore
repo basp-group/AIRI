@@ -40,7 +40,9 @@ logs/
 
 # MATLAB
 *.asv
-/tmp/*
+*.prf
+*.p12
+*.pem
 
 # ignore BM3D
 /lib/bm3d/*
