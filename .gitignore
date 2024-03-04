@@ -32,6 +32,9 @@ logs/
 *.txt
 *.onnx
 
+!data/3c353_gdth.fits
+!data/3c353_meas_dt_1_seed_0.mat
+
 # WSCLEAN
 *.MS
 
