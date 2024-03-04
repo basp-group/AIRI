@@ -1,13 +1,16 @@
 clear 
 clc
 
+path = fileparts(mfilename('fullpath'));
+cd(path)
 cd ..
 
 config = ['.', filesep, 'config', filesep, 'airi_sim.json'];
-dataFile = ['.', filesep, 'examples', filesep, 'simulated_measurements', filesep, 'dt8', filesep, '3c353_lrs_1.0_seed_0.mat'];
-resultPath = ['.', filesep, 'results', filesep, '3c353_dt8_seed0', filesep, 'cAIRI-OAID']; 
+dataFile = ['.', filesep, 'data', filesep, '3c353_meas_dt_1_seed_0.mat'];
+groundtruth = ['.', filesep, 'data', filesep, '3c353_gdth.fits'];
+resultPath = ['.', filesep, 'results']; 
 algorithm = 'cairi';
 shelf_pth = ['.', filesep, 'airi_denoisers', filesep, 'shelf_oaid.csv'];
 RunID = 0;
 
-run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'dnnShelfPath', shelf_pth, 'runID', 0)
+run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'dnnShelfPath', shelf_pth, 'groundtruth', groundtruth, 'runID', 0)
