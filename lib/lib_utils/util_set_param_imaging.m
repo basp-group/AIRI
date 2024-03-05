@@ -2,7 +2,7 @@ function param_imaging = util_set_param_imaging(param_general, param_algo, imDim
 
     % path for saving results
     % set result path
-    if ~isfield(param_general, 'resultPath')
+    if ~isfield(param_general, 'resultPath') || isempty(param_general.resultPath)
         resultPath = fullfile(param_general.dirProject, 'results');
     else
         resultPath = param_general.resultPath;
@@ -12,7 +12,7 @@ function param_imaging = util_set_param_imaging(param_general, param_algo, imDim
     end
     % src name
     if isfield(param_general, 'srcName') && ~isempty(param_general.srcName)
-        srcname = param_general.srcName
+        srcname = param_general.srcName;
     else
         [~, srcname, ~] = fileparts(pathData);
     end
