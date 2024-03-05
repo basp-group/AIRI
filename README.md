@@ -123,7 +123,14 @@ Note that the measurement file is of the same format as the input expected in th
 The configuration file is a ``.json`` format file comprising all parameters to run the different algorithms. A template file is provided in `$AIRI/config/`. An example `airi_sim.json` is provided in `$AIRI/config/`. A detailed description about the fields in the configuration file is provided [here](https://github.com/basp-group/AIRI/blob/main/config/README.md).
 
 ## Usage and Examples
-The algorithms can be launched through function `run_imager()`. The mandatory input argument of this function is the path of configuration file discussed in the above section. It also accepts 11 optional name-argument pairs which will overwrite corresponding fields in the configuration file.
+The algorithms can be launched through function `run_imager()`. The mandatory input argument of this function is the path of configuration file discussed in the above section. 
+
+```MATLAB
+pth_config = ['.', filesep, 'config', filesep, 'airi_sim.json'];
+run_imager(pth_config)
+```
+
+It also accepts 11 optional name-argument pairs which will overwrite corresponding fields in the configuration file.
 
 ```MATLAB
 run_imager(pth_config, ... % path of the configuration file

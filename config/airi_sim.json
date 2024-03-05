@@ -2,7 +2,7 @@
     {   "__comment": "Main",
         "main": {
             "srcName": [],
-            "dataFile": [],
+            "dataFile": "./data/3c353_meas_dt_1_seed_0.mat",
             "resultPath": [],
             "algorithm": "airi",
             "imDimx": 512,
