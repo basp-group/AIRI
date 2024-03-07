@@ -66,6 +66,9 @@ end
 if isfield(NameValueArgs, 'runID')
     main.runID = NameValueArgs.runID;
 end
+if isempty(main.runID)
+    main.runID = 0;
+end
 disp(main)
 
 % flag
