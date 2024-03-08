@@ -106,7 +106,7 @@ The current code takes as input data a measurement file in ``.mat`` format conta
    "y"               %% vector; data (Stokes I)
    "u"               %% vector; u coordinate (in units of the wavelength)
    "v"               %% vector; v coordinate (in units of the wavelength)
-   "w"               %% vector, w coordinate (in units of the wavelength)
+   "w"               %% vector; w coordinate (in units of the wavelength)
    "nW"              %% vector; inverse of the noise standard deviation 
    "nWimag"          %% vector; square root of the imaging weights if available (Briggs or uniform), empty otherwise
    "frequency"       %% scalar; observation frequency
