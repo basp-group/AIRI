@@ -100,7 +100,7 @@ for itr = 1 : param_algo.imMaxItr
         data_fidelity = norm(diff(:));
 
         % print info
-        fprintf("\n\nIter %d: relative variation %g, data fidelity %g\ntimings: primal update %f sec, dual update %f sec, current iteration %f sec.", ...
+        fprintf("\n\nIter %d: relative variation %g, data fidelity %g\ntimings: primal update %f sec, dual update %f sec, iteration %f sec.", ...
             itr, im_relval, data_fidelity, t_primal, t_dual, t_itr);
 
         if data_fidelity < param_algo.epsilon
@@ -108,7 +108,7 @@ for itr = 1 : param_algo.imMaxItr
         end
     else
         % print info
-        fprintf("\n\nIter %d: relative variation %g\ntimings: primal update %f sec, dual update %f sec, current iteration %f sec.", ...
+        fprintf("\n\nIter %d: relative variation %g\ntimings: primal update %f sec, dual update %f sec, iteration %f sec.", ...
             itr, im_relval, t_primal, t_dual, t_itr);
     end
 
