@@ -1,4 +1,4 @@
-function [param_nufft, param_precond, param_wproj] = util_set_param_operator(param_general, imDimx, imDimy, imPixelSize)
+function [param_nufft, param_wproj] = util_set_param_operator(param_general, imDimx, imDimy, imPixelSize)
     
     % NUFFT
     if ~isfield(param_general, 'nufft_oversampling')
@@ -19,11 +19,6 @@ function [param_nufft, param_precond, param_wproj] = util_set_param_operator(par
 
     fprintf("\nINFO: NUFFT kernel: Kaiser Bessel: size %d x %d, oversampling along each dim.: x%d, x%d", ...
         param_nufft.Kx,param_nufft.Ky,param_nufft.ox,param_nufft.oy)
-
-    % Preconditionning params
-    param_precond.N = imDimx * imDimy; % number of Fourier points (oversampled plane)
-    param_precond.Nox = param_nufft.ox * imDimx;
-    param_precond.Noy = param_nufft.oy * imDimy;
 
     % FoV info for w-proj
     param_wproj.measop_flag_wproj = false; % hard-coded for now

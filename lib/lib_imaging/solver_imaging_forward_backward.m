@@ -1,15 +1,9 @@
-function RESULTS = solver_imaging_forward_backward(DATA, FWOp, BWOp, param_imaging, param_algo)
+function [FINAL_MODEL, FINAL_RESIDUAL] = solver_imaging_forward_backward(measop, adjoint_measop, dirtyIm, param_imaging, param_algo)
 %% ************************************************************************
 % *************************************************************************
 % Imaging: forward-backward algorithm
 % *************************************************************************
 %% Initialization
-
-% initial image model
-MODEL = zeros(param_imaging.imDims);
-% calculate dirty image
-DirtyIm = BWOp(DATA);
-
 % AIRI specific
 flag_airi = strcmp(param_algo.algorithm, 'airi');
 if flag_airi
@@ -33,19 +27,21 @@ end
 fprintf('\n*************************************************\n')
 fprintf('********* STARTING ALGORITHM: %s *********', algo_print_name)
 fprintf('\n*************************************************\n')
+% init
+MODEL = zeros(param_imaging.imDims);
+t_total = tic;
 
-tStart_total = tic;
-for iter = 1 : param_algo.imMaxItr
-    tStart_iter =tic;
+for itr = 1 : param_algo.imMaxItr
+    t_itr =tic;
     MODEL_prev = MODEL;
 
-    % gradient step
-    tStart_grad =tic;
-    Xhat = MODEL - param_algo.gamma * (BWOp(FWOp(MODEL)) - DirtyIm);
-    t_grad = toc(tStart_grad);
+    % (forward) gradient step
+    t_grad =tic;
+    Xhat = MODEL - param_algo.gamma * (adjoint_measop(measop(MODEL)) - dirtyIm);
+    t_grad = toc(t_grad);
 
-    % denoising step
-    tStart_den =tic;
+    % (backward) denoising step
+    t_den =tic;
     if flag_airi
         % apply AIRI denoiser
         if param_algo.dnnApplyTransform
@@ -83,27 +79,27 @@ for iter = 1 : param_algo.imMaxItr
         end
         MODEL = BM3D(Xhat/currPeak, param_algo.heuristic) * currPeak;
     end
-    t_den = toc(tStart_den);
-    t_iter = toc(tStart_iter);
+    t_den = toc(t_den);
+    t_itr = toc(t_itr);
 
     % print info
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
     % print info
-    fprintf("\n\nIter %d: relative variation %g, gradient step %f sec, denoising step %f sec, current iteration %f sec.", ...
-        iter, im_relval, t_grad, t_den, t_iter);
+    fprintf("\n\nIter %d: relative variation %g\ntimings: gradient step %f sec, denoising step %f sec, iteration %f sec.", ...
+        itr, im_relval, t_grad, t_den, t_itr);
 
     % stopping creteria
-    if im_relval < param_algo.imVarTol && iter >= param_algo.imMinItr
+    if im_relval < param_algo.imVarTol && itr >= param_algo.imMinItr
         break;
     end
 
     % save intermediate results
-    if mod(iter, param_imaging.itrSave) == 0
+    if mod(itr, param_imaging.itrSave) == 0
         fitswrite(MODEL, fullfile(param_imaging.resultPath, ...
-            ['tempModel_iter_', num2str(iter), '.fits']))
-        RESIDUAL = DirtyIm - BWOp(FWOp(MODEL));
+            ['tmpModel_itr_', num2str(itr), '.fits']))
+        RESIDUAL = dirtyIm - adjoint_measop(measop(MODEL));
         fitswrite(RESIDUAL, fullfile(param_imaging.resultPath, ...
-            ['tempResidual_iter_', num2str(iter), '.fits']))
+            ['tmpResidual_itr_', num2str(itr), '.fits']))
     end
 
     % AIRI specific: adaptive network selection
@@ -126,15 +122,15 @@ for iter = 1 : param_algo.imMaxItr
     end
     
 end
-t_total = toc(tStart_total);
+t_total = toc(t_total);
 
-fprintf("\n\nImaging finished in %f sec, total number of iterations %d\n\n", t_total, iter);
+fprintf("\n\nImaging finished in %f sec, total number of iterations %d\n\n", t_total, itr);
 fprintf('\n**************************************\n')
 fprintf('********** END OF ALGORITHM **********')
 fprintf('\n**************************************\n')
 
 %% Final variables
-RESULTS.MODEL = MODEL; %reconstructed image
-RESULTS.RESIDUAL = DirtyIm - BWOp(FWOp(MODEL)); %reconstructed image
+FINAL_MODEL = MODEL;
+FINAL_RESIDUAL = dirtyIm - adjoint_measop(measop(MODEL));
 
 end

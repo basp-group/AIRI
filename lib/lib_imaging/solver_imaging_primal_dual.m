@@ -1,15 +1,9 @@
-function RESULTS = solver_imaging_primal_dual(DATA, FWOp, BWOp, param_imaging, param_algo)
+function [FINAL_MODEL, FINAL_RESIDUAL] = solver_imaging_primal_dual(DATA, measop, adjoint_measop, dirtyIm, param_imaging, param_algo)
 %% ************************************************************************
 % *************************************************************************
 % Imaging: primal-dual algorithm
 % *************************************************************************
 %% Initialization
-
-% initial image model
-MODEL = zeros(param_imaging.imDims);
-DUAL = zeros(size(DATA));
-% calculate dirty image
-DirtyIm = BWOp(DATA);
 % l2-ball projection
 prox_l2ball = @(z,c,radius) (z - c) * min(radius / norm(z(:)-c(:)), 1) + c;
 % AIRI specific
@@ -35,15 +29,18 @@ end
 fprintf('\n*************************************************\n')
 fprintf('********* STARTING ALGORITHM: %s *********', algo_print_name)
 fprintf('\n*************************************************\n')
+% init
+MODEL = zeros(param_imaging.imDims);
+DUAL = zeros(size(DATA));
+t_total = tic;
 
-tStart_total = tic;
-for iter = 1 : param_algo.imMaxItr
-    tStart_iter =tic;
+for itr = 1 : param_algo.imMaxItr
+    t_itr =tic;
     MODEL_prev = MODEL;
 
     % primal update
-    tStart_primal =tic;
-    MODEL = MODEL - param_algo.sigma .* BWOp(DUAL);
+    t_primal =tic;
+    MODEL = MODEL - param_algo.sigma .* adjoint_measop(DUAL);
     % denoising step
     if flag_airi
         % apply AIRI denoiser
@@ -82,46 +79,46 @@ for iter = 1 : param_algo.imMaxItr
         end
         MODEL = BM3D(MODEL/currPeak, param_algo.heuristic) * currPeak;
     end
-    t_primal = toc(tStart_primal);
+    t_primal = toc(t_primal);
 
     % dual update
-    tStart_dual = tic;
-    DUAL = DUAL + FWOp(2*MODEL - MODEL_prev);
+    t_dual = tic;
+    DUAL = DUAL + measop(2*MODEL - MODEL_prev);
     % l2-ball projection
     DUAL_proj = prox_l2ball(DUAL, DATA, param_algo.epsilon);
     DUAL = DUAL - DUAL_proj; % Moreau proximal decomposition
-    t_dual = toc(tStart_dual);
-    t_iter = toc(tStart_iter);
+    t_dual = toc(t_dual);
+    t_itr = toc(t_itr);
 
     % stopping creteria
     im_relval = sqrt(sum((MODEL - MODEL_prev).^2, 'all') ./ (sum(MODEL.^2, 'all')+1e-10));
     
-    if iter >= param_algo.imMinItr && ... % reach minimum number of iteration
+    if itr >= param_algo.imMinItr && ... % reach minimum number of iteration
         im_relval < param_algo.imVarTol % reach variation tolerane
 
-        diff = DATA - FWOp(MODEL);
+        diff = DATA - measop(MODEL);
         data_fidelity = norm(diff(:));
 
         % print info
-        fprintf("\n\nIter %d: relative variation %g, data fidelity %g, primal update %f sec, dual update %f sec, current iteration %f sec.", ...
-            iter, im_relval, data_fidelity, t_primal, t_dual, t_iter);
+        fprintf("\n\nIter %d: relative variation %g, data fidelity %g\ntimings: primal update %f sec, dual update %f sec, current iteration %f sec.", ...
+            itr, im_relval, data_fidelity, t_primal, t_dual, t_itr);
 
         if data_fidelity < param_algo.epsilon
             break;
         end
     else
         % print info
-        fprintf("\n\nIter %d: relative variation %g, primal update %f sec, dual update %f sec, current iteration %f sec.", ...
-            iter, im_relval, t_primal, t_dual, t_iter);
+        fprintf("\n\nIter %d: relative variation %g\ntimings: primal update %f sec, dual update %f sec, current iteration %f sec.", ...
+            itr, im_relval, t_primal, t_dual, t_itr);
     end
 
     % save intermediate results
-    if mod(iter, param_imaging.itrSave) == 0
+    if mod(itr, param_imaging.itrSave) == 0
         fitswrite(MODEL, fullfile(param_imaging.resultPath, ...
-            ['tempModel_iter_', num2str(iter), '.fits']))
-        RESIDUAL = DirtyIm - BWOp(FWOp(MODEL));
+            ['tmpModel_itr_', num2str(itr), '.fits']))
+        RESIDUAL = dirtyIm - adjoint_measop(measop(MODEL));
         fitswrite(RESIDUAL, fullfile(param_imaging.resultPath, ...
-            ['tempResidual_iter_', num2str(iter), '.fits']))
+            ['tmpResidual_itr_', num2str(itr), '.fits']))
     end
 
     % AIRI specific: adaptive network selection
@@ -144,15 +141,15 @@ for iter = 1 : param_algo.imMaxItr
     end
     
 end
-t_total = toc(tStart_total);
+t_total = toc(t_total);
 
-fprintf("\n\nImaging finished in %f sec, total number of iterations %d\n\n", t_total, iter);
+fprintf("\n\nImaging finished in %f sec, total number of iterations %d\n\n", t_total, itr);
 fprintf('\n**************************************\n')
 fprintf('********** END OF ALGORITHM **********')
 fprintf('\n**************************************\n')
 
 %% Final variables
-RESULTS.MODEL = MODEL; %reconstructed image
-RESULTS.RESIDUAL = DirtyIm - BWOp(FWOp(MODEL)); %reconstructed image
+FINAL_MODEL = MODEL;
+FINAL_RESIDUAL = dirtyIm - adjoint_measop(measop(MODEL));
 
 end
