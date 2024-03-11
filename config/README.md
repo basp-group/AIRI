@@ -12,9 +12,9 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
     - ``imDimx``: Horizontal dimension of the estimated image.
     - ``imDimy``: Vertical dimension of the estimated image.
     - ``imPixelSize``(optional): Pixel size of the estimated image in the unit of arcsec. If empty, its value is inferred from ``superresolution`` such that ``imPixelSize = (180 / pi) * 3600 / (superresolution * 2 * maxProjBaseline)``.
-    - ``superresolution``(optional): Ratio between the spatial bandwidth of the image estimate and the spatial bandwidth of the observations (recommended to be in [1.5, 2.5]). Default: ``1.0``.
+    - ``superresolution``(optional): Imaging super-resolution factor, used when the pixel size is not provided (recommended to be in [1.5, 2.5]). Default: ``1.0``.
     - ``groundtruth``(optional): Path of the groundtruth image. The file must be in ``.fits `` format, and is used to compute reconstruction metrics if a valid path is provided.
-    - ``runID``(optional): Identification number of the current task. Default: ``0``.
+    - ``runID``(optional): Identification number of the current task.
 
     The values of the entries in Main will be overwritten if corresponding name-value arguments are fed into the function ``run_imager()``.
 
