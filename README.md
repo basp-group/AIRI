@@ -102,7 +102,7 @@ If you'd like to use our trained AIRI denoisers, you can download the ONNX files
 ### Measurement file
 The current code takes as input data a measurement file in ``.mat`` format containing the following fields:
 
- ``` matlab 
+ ```matlab 
    "y"               %% vector; data (Stokes I)
    "u"               %% vector; u coordinate (in units of the wavelength)
    "v"               %% vector; v coordinate (in units of the wavelength)
@@ -134,7 +134,7 @@ It also accepts 11 optional name-argument pairs which will overwrite correspondi
 
 ```MATLAB
 run_imager(pth_config, ... % path of the configuration file
-    'srcName', srcName, ... % name for the reconstruction task
+    'srcName', srcName, ... %% name of the target src used for output filenames
     'dataFile', dataFile, ... % path of the measurement file
     'resultPath', resultPath, ... % path where the result folder will be created
     'algorithm', algorithm, ... % algorithm that will be used for imaging
@@ -142,9 +142,9 @@ run_imager(pth_config, ... % path of the configuration file
     'imDimy', imDimy, ... % vertical number of pixels in the final reconstructed image
     'dnnShelfPath', dnnShelfPath, ... % path of the denoiser shelf configuration file
     'imPixelSize', imPixelSize, ... % pixel size of the reconstructed image in the unit of arcsec
-    'superresolution', superresolution, ... % ratio between the expected maximum projection baseline and the one given in the measurement file
-    'groundtruth', groundtruth, ... % path of the groundtruth image
-    'runID', runID ... % identification number of the current task
+    'superresolution', superresolution, ... % used if pixel size not provided 
+    'groundtruth', groundtruth, ... % path of the groundtruth image when available
+    'runID', runID ... %% identification number of the imaging run used for output filenames
   )
 ```
 
