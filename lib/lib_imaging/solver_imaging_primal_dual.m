@@ -1,4 +1,4 @@
-function [FINAL_MODEL, FINAL_RESIDUAL] = solver_imaging_primal_dual(DATA, measop, adjoint_measop, dirtyIm, param_imaging, param_algo)
+function [FINAL_MODEL, FINAL_RESIDUAL] = solver_imaging_primal_dual(DATA, measop, adjoint_measop, param_imaging, param_algo)
 %% ************************************************************************
 % *************************************************************************
 % Imaging: primal-dual algorithm
@@ -116,7 +116,7 @@ for itr = 1 : param_algo.imMaxItr
     if mod(itr, param_imaging.itrSave) == 0
         fitswrite(MODEL, fullfile(param_imaging.resultPath, ...
             ['tmpModel_itr_', num2str(itr), '.fits']))
-        RESIDUAL = dirtyIm - adjoint_measop(measop(MODEL));
+        RESIDUAL = adjoint_measop(DATA - measop(MODEL));
         fitswrite(RESIDUAL, fullfile(param_imaging.resultPath, ...
             ['tmpResidual_itr_', num2str(itr), '.fits']))
     end
@@ -150,6 +150,6 @@ fprintf('\n**************************************\n')
 
 %% Final variables
 FINAL_MODEL = MODEL;
-FINAL_RESIDUAL = dirtyIm - adjoint_measop(measop(MODEL));
+FINAL_RESIDUAL = adjoint_measop(DATA - measop(MODEL));
 
 end

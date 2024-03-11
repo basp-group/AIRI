@@ -1,4 +1,4 @@
-function param_algo = util_set_param_algo(param_general, heuristic, peak_est, numMeas)
+function param_algo = util_set_param_algo(param_general, heuristic_noise, peak_est, numMeas)
 
     % algorithm type
     param_algo.algorithm = param_general.algorithm;
@@ -32,10 +32,10 @@ function param_algo = util_set_param_algo(param_general, heuristic, peak_est, nu
     end
     % heuristic noise level
     if param_algo.heuNoiseScale ~= 1.0
-        heuristic = heuristic * param_algo.heuNoiseScale;
-        fprintf('\nINFO: heuristic noise level after scaling: %g', heuristic);
+        heuristic_noise = heuristic_noise * param_algo.heuNoiseScale;
+        fprintf('\nINFO: heuristic noise level after scaling: %g', heuristic_noise);
     end
-    param_algo.heuristic = heuristic;
+    param_algo.heuristic = heuristic_noise;
     % estimated image peak value
     if ~isfield(param_general,'imPeakEst') || ~isscalar(param_general.imPeakEst) || param_general.imPeakEst<=0
         param_algo.imPeakEst = peak_est;

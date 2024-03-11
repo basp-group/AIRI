@@ -15,9 +15,25 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'utils']);
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'operators']);
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'ddes_utils']);
+
+    % set result path
+    if ~isfield(param_general, 'resultPath') || isempty(param_general.resultPath)
+        param_general.resultPath = fullfile(param_general.dirProject, 'results');
+    end
+    if ~exist(param_general.resultPath, 'dir') 
+        mkdir(param_general.resultPath)
+    end
+
+    % src name
+    if ~isfield(param_general, 'srcName') || isempty(param_general.srcName)
+        [~, param_general.srcname, ~] = fileparts(pathData);        
+    end
+    if ~isempty(runID)
+        param_general.srcname = [param_general.srcname, '_runID_', num2str(runID)];
+    end
     
     %% Measurements & operators
-    % Measurements
+    % Load data
     [DATA, param_general.flag_data_weighting] = util_read_data_file(pathData, param_general.flag_data_weighting);
 
     % Set pixel size
@@ -39,7 +55,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         param_general.flag_data_weighting, param_nufft, param_wproj);
     [measop, adjoint_measop] = util_syn_meas_op_single(A, At, G, W, []);
 
-    % compute operator norm
+    % Compute operator's spectral norm
     fprintf('\nComputing spectral norm of the measurement operator..')
     param_general.measOpNorm = op_norm(measop, adjoint_measop, [imDimy,imDimx], 1e-6, 500, 0);
     fprintf('\nINFO: measurement op norm %f', param_general.measOpNorm);
@@ -57,14 +73,14 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     PSFPeak = max(PSF, [], 'all');  clear dirac;
     fprintf('\nINFO: normalisation factor in RI, PSF peak value: %g', PSFPeak);
 
-    % Compute back-projected data 
+    % Compute back-projected data: dirty image
     dirty = adjoint_measop(DATA);
     peak_est = max(dirty,[],'all') / PSFPeak;
     fprintf('\nINFO: dirty image peak value: %g', peak_est);
     
     %% Heuristic noise level
-    heuristic = 1 / sqrt(2 * param_general.measOpNorm);
-    fprintf('\nINFO: heuristic noise level: %g', heuristic);
+    heuristic_noise = 1 / sqrt(2 * param_general.measOpNorm);
+    fprintf('\nINFO: heuristic noise level: %g', heuristic_noise);
 
     if param_general.flag_data_weighting
         % Calculate the correction factor of the heuristic noise level when
@@ -73,15 +89,15 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         measOpNorm_prime = op_norm(measop_prime, adjoint_measop_prime, [imDimy,imDimx], 1e-6, 500, 0);
         heuristic_correction = sqrt(measOpNorm_prime/param_general.measOpNorm);
         clear measop_prime adjoint_measop_prime nWimag;
-        heuristic = heuristic .* heuristic_correction;
-        fprintf('\nINFO: heuristic noise level after correction: %g, corection factor %.16g', heuristic, heuristic_correction);
+        heuristic_noise = heuristic_noise .* heuristic_correction;
+        fprintf('\nINFO: heuristic noise level after correction: %g, corection factor %.16g', heuristic_noise, heuristic_correction);
     end
 
     %% Set parameters for imaging and algorithms
-    param_algo = util_set_param_algo(param_general, heuristic, peak_est, numel(DATA));
-    param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy,imDimx], pathData, runID);
+    param_algo = util_set_param_algo(param_general, heuristic_noise, peak_est, numel(DATA));
+    param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy,imDimx]);
     
-    %% save dirty image and PSF
+    %% Save dirty image & PSF
     fitswrite(single(PSF), fullfile(param_imaging.resultPath, 'PSF.fits')); clear PSF;
     fitswrite(single(dirty./PSFPeak), fullfile(param_imaging.resultPath, 'dirty.fits'));
     
@@ -97,9 +113,9 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         %% Imaging
         switch param_algo.algorithm
             case {'airi', 'upnp-bm3d'}
-                [MODEL, RESIDUAL] = solver_imaging_forward_backward(measop, adjoint_measop, dirty, param_imaging, param_algo);
+                [MODEL, RESIDUAL] = solver_imaging_forward_backward(dirty, measop, adjoint_measop, param_imaging, param_algo);
             case {'cairi', 'cpnp-bm3d'}
-                [MODEL, RESIDUAL] = solver_imaging_primal_dual(DATA, measop, adjoint_measop, dirty, param_imaging, param_algo);
+                [MODEL, RESIDUAL] = solver_imaging_primal_dual(DATA, measop, adjoint_measop, param_imaging, param_algo);
         end
 
         %% Save final results

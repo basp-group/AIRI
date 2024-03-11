@@ -1,4 +1,4 @@
-function [FINAL_MODEL, FINAL_RESIDUAL] = solver_imaging_forward_backward(measop, adjoint_measop, dirtyIm, param_imaging, param_algo)
+function [FINAL_MODEL, FINAL_RESIDUAL] = solver_imaging_forward_backward(dirtyIm, measop, adjoint_measop, param_imaging, param_algo)
 %% ************************************************************************
 % *************************************************************************
 % Imaging: forward-backward algorithm

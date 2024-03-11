@@ -1,42 +1,26 @@
-function param_imaging = util_set_param_imaging(param_general, param_algo, imDims, pathData, runID)
+function param_imaging = util_set_param_imaging(param_general, param_algo, imDims)
 
-    % path for saving results
-    % set result path
-    if ~isfield(param_general, 'resultPath') || isempty(param_general.resultPath)
-        resultPath = fullfile(param_general.dirProject, 'results');
-    else
-        resultPath = param_general.resultPath;
-    end
-    if ~exist(resultPath, 'dir') 
-        mkdir(resultPath)
-    end
-    % src name
-    if isfield(param_general, 'srcName') && ~isempty(param_general.srcName)
-        srcname = param_general.srcName;
-    else
-        [~, srcname, ~] = fileparts(pathData);
-    end
-    % set subfolder name
+    % set subfolder name for saving results
     switch param_general.algorithm
         case 'airi'
-            subFolerName = [srcname, '_AIRI_ID_',num2str(runID), ...
-                '_heuScale_', num2str(param_algo.heuNoiseScale), ...
+            subFolerName = [param_general.srcname, '_AIRI_heuScale_', ...
+                num2str(param_algo.heuNoiseScale), ...
                 '_maxItr_',num2str(param_algo.imMaxItr)];
         case 'cairi'
-            subFolerName = [srcname, '_cAIRI_ID_',num2str(runID), ...
-                '_heuScale_', num2str(param_algo.heuNoiseScale), ...
+            subFolerName = [param_general.srcname, '_cAIRI_heuScale_', ...
+                num2str(param_algo.heuNoiseScale), ...
                 '_maxItr_',num2str(param_algo.imMaxItr)];
         case 'upnp-bm3d'
-            subFolerName = [srcname, '_uPnP-BM3D_ID_',num2str(runID), ...
+            subFolerName = [param_general.srcname, '_uPnP-BM3D_', ...
                 '_heuScale_', num2str(param_algo.heuNoiseScale), ...
                 '_maxItr_',num2str(param_algo.imMaxItr)];
         case 'cpnp-bm3d'
-            subFolerName = [srcname, '_cPnP-BM3D_ID_',num2str(runID), ...
+            subFolerName = [param_general.srcname, '_cPnP-BM3D_ID_', ...
                 '_heuScale_', num2str(param_algo.heuNoiseScale), ...
                 '_maxItr_',num2str(param_algo.imMaxItr)];
     end
     % set full path
-    param_imaging.resultPath = fullfile(resultPath, subFolerName);
+    param_imaging.resultPath = fullfile(param_general.resultPath, subFolerName);
     if ~exist(param_imaging.resultPath, 'dir') 
         mkdir(param_imaging.resultPath)
     end
@@ -61,8 +45,5 @@ function param_imaging = util_set_param_imaging(param_general, param_algo, imDim
 
     % groundtruth image
     param_imaging.groundtruth = param_general.groundtruth;
-
-    % run ID
-    param_imaging.runID = runID;
 
 end
