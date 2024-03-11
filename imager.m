@@ -112,10 +112,14 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     if param_imaging.flag_imaging
         %% Imaging
         switch param_algo.algorithm
-            case {'airi', 'upnp-bm3d'}
-                [MODEL, RESIDUAL] = solver_imaging_forward_backward(dirty, measop, adjoint_measop, param_imaging, param_algo);
-            case {'cairi', 'cpnp-bm3d'}
-                [MODEL, RESIDUAL] = solver_imaging_primal_dual(DATA, measop, adjoint_measop, param_imaging, param_algo);
+            case 'airi'
+                [MODEL, RESIDUAL] = airi(dirty, measop, adjoint_measop, param_imaging, param_algo);
+            case 'upnp-bm3d'
+                [MODEL, RESIDUAL] = upnp_bm3d(dirty, measop, adjoint_measop, param_imaging, param_algo);
+            case 'cairi'
+                [MODEL, RESIDUAL] = cairi(DATA, measop, adjoint_measop, param_imaging, param_algo);
+            case 'cpnp-bm3d'
+                [MODEL, RESIDUAL] = cpnp_bm3d(DATA, measop, adjoint_measop, param_imaging, param_algo);
         end
 
         %% Save final results
