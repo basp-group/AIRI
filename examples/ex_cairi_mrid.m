@@ -13,4 +13,4 @@ algorithm = 'cairi';
 shelf_pth = ['.', filesep, 'airi_denoisers', filesep, 'shelf_mrid.csv'];
 RunID = 4;
 
-run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'dnnShelfPath', shelf_pth, 'groundtruth', groundtruth, 'runID', 0)
+run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'dnnShelfPath', shelf_pth, 'groundtruth', groundtruth, 'runID', RunID)

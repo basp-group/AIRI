@@ -13,4 +13,4 @@ algorithm = 'airi';
 shelf_pth = ['.', filesep, 'airi_denoisers', filesep, 'shelf_oaid.csv'];
 RunID = 0;
 
-run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'dnnShelfPath', shelf_pth, 'groundtruth', groundtruth, 'runID', 0)
+run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'dnnShelfPath', shelf_pth, 'groundtruth', groundtruth, 'runID', RunID)

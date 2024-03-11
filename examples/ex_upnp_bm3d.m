@@ -12,4 +12,4 @@ resultPath = ['.', filesep, 'results'];
 algorithm = 'upnp-bm3d';
 RunID = 2;
 
-run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'groundtruth', groundtruth, 'runID', 0)
+run_imager(config, 'dataFile', dataFile, 'algorithm', algorithm, 'resultPath', resultPath, 'groundtruth', groundtruth, 'runID', RunID)
