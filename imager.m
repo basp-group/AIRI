@@ -16,7 +16,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'operators']);
     addpath([dirProject, filesep, 'lib', filesep, 'RI-measurement-operator', filesep, 'lib', filesep, 'ddes_utils']);
 
-    % set result path
+    % set result directory
     if ~isfield(param_general, 'resultPath') || isempty(param_general.resultPath)
         param_general.resultPath = fullfile(param_general.dirProject, 'results');
     end
@@ -24,7 +24,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         mkdir(param_general.resultPath)
     end
 
-    % src name
+    % src/test name tag for outputs filename
     if ~isfield(param_general, 'srcName') || isempty(param_general.srcName)
         [~, param_general.srcname, ~] = fileparts(pathData);        
     end
@@ -130,6 +130,8 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         
         %% Final metrics
         fprintf('\nINFO: The standard deviation of the final residual dirty image %g', std(RESIDUAL, 0, 'all'))
+        fprintf('\nINFO: The standard deviation of the normalised final residual dirty image %g', std(RESIDUAL, 0, 'all') / PSFPeak)
+        fprintf('\nINFO: The ratio between the norm of the residual and the dirty image: ||residual|| / || dirty || =  %g', norm(RESIDUAL(:))./norm(dirty(:)))
         if isfield(param_imaging,'groundtruth') && ~isempty(param_imaging.groundtruth) && isfile(param_imaging.groundtruth)
             gdth_img = fitsread(param_imaging.groundtruth);
             rsnr = 20*log10( norm(gdth_img(:)) / norm(MODEL(:) - gdth_img(:)) );
