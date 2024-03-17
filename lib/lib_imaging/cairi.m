@@ -1,11 +1,13 @@
-function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, param_imaging, param_algo)
+function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW, param_imaging, param_algo)
     %% ************************************************************************
     % *************************************************************************
     % Imaging: cAIRI algorithm based on primal-dual
     % *************************************************************************
     %% Initialization
-    % l2-ball projection
-    prox_l2ball = @(z,c,radius) (z - c) * min(radius / norm(z(:)-c(:)), 1) + c;
+    % Ellipsoid projection parameters
+    param_proj.max_itr = 1;
+    param_proj.min_itr = 20;
+    param_proj.eps = 1e-8;
     % load denoiser
     [netPath, scalingFactor, peakMin, peakMax] = ...
         get_net_detail(param_algo.dnnShelfPath, param_algo.heuristic, param_algo.imPeakEst);
@@ -24,6 +26,7 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, par
     % init
     MODEL = zeros(param_imaging.imDims);
     DUAL = zeros(size(DATA));
+    [DUAL_proj, ~] = solver_proj_elipse_fb(DUAL, 0, DATA, aW, param_algo.epsilon, zeros(size(DATA)), param_proj.max_itr, param_proj.min_itr, param_proj.eps);
     t_total = tic;
     
     for itr = 1 : param_algo.imMaxItr
@@ -64,10 +67,10 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, par
     
         % dual update
         t_dual = tic;
-        DUAL = DUAL + measop(2*MODEL - MODEL_prev);
+        DUAL = DUAL ./ aW + measop(2*MODEL - MODEL_prev);
         % l2-ball projection
-        DUAL_proj = prox_l2ball(DUAL, DATA, param_algo.epsilon);
-        DUAL = DUAL - DUAL_proj; % Moreau proximal decomposition
+        [DUAL_proj, ~] = solver_proj_elipse_fb(DUAL, 0, DATA, aW, param_algo.epsilon, DUAL_proj, param_proj.max_itr, param_proj.min_itr, param_proj.eps);
+        DUAL = (DUAL - DUAL_proj) .* aW; % Moreau proximal decomposition
         t_dual = toc(t_dual);
         t_itr = toc(t_itr);
     

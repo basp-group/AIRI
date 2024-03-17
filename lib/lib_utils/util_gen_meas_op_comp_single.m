@@ -1,4 +1,4 @@
-function [A, At, G, W, nWi] = util_gen_meas_op_comp_single(dataFilename, imDimx, imDimy, flag_data_weighting, param_nufft, param_wproj)
+function [A, At, G, W, nWi, aW] = util_gen_meas_op_comp_single(dataFilename, imDimx, imDimy, flag_data_weighting, param_nufft, param_wproj, param_precond)
                                                                      % nDataSets, ddesfilename
     % Build the measurement operator for a given uv-coverage at pre-defined
     % frequencies.
@@ -28,14 +28,13 @@ function [A, At, G, W, nWi] = util_gen_meas_op_comp_single(dataFilename, imDimx,
     % At : function handle
     %     Function to compute the adjoint of ``A``.
     % G : cell of cell of complex[:]
-    %     Cell containing the trimmed-down interpolation kernels for each
-    %     channel, and each data block within a channel.
+    %     Cell containing the trimmed-down interpolation kernel.
     % W : cell of cell of double[:]
-    %     Cell containing the selection vector for each channel, and
-    %     data block within a channel.
+    %     Cell containing the selection vector.
+    % aW : cell of cell of double[:]
+    %     Cell containing the preconditioning vectors.
     % nWi : cell of cell of single[:]
-    %     Cell containing the imaging weights (uniform/briggs) for each channel, and
-    %     data block within a channel.
+    %     Cell containing the imaging weights (uniform/briggs).
     %%
     % speed_of_light = 299792458;
 
@@ -59,14 +58,17 @@ function [A, At, G, W, nWi] = util_gen_meas_op_comp_single(dataFilename, imDimx,
 
     % measurement operator initialization
     [A, At, G, W] = op_p_nufft_wproj_dde(param_nufft, [{v} {u}], {w}, {nW}, param_wproj);
+
+    % compute uniform weights (sampling density) for the preconditioning
+    aW = util_gen_preconditioning_matrix(u, v, param_precond);
+
     clear u v w nW;
     G = G{1};
     W = W{1};
-    
-    clear u v w nW;
 
     if flag_data_weighting
-        nWi = double(nWimag(:)); clear nWimag;
+        nWi = double(nWimag(:)); 
+        clear nWimag;
     else
         nWi = [];
     end

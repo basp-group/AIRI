@@ -1,4 +1,4 @@
-function [param_nufft, param_wproj] = util_set_param_operator(param_general, imDimx, imDimy, imPixelSize)
+function [param_nufft, param_wproj, param_precond] = util_set_param_operator(param_general, imDimx, imDimy, imPixelSize)
     
     % NUFFT
     if ~isfield(param_general, 'nufft_oversampling')
@@ -29,5 +29,12 @@ function [param_nufft, param_wproj] = util_set_param_operator(param_general, imD
     param_wproj.uGridSize = 1 / (param_nufft.ox * param_wproj.FoVx);
     param_wproj.vGridSize = 1 / (param_nufft.oy * param_wproj.FoVy);
     param_wproj.halfSpatialBandwidth = (180 / pi) * 3600 / (imPixelSize) / 2;
+
+    % preconditionning params
+    param_precond.N = imDimx * imDimy; % number of Fourier points (oversampled plane)
+    param_precond.Nox = param_nufft.ox * imDimx;
+    param_precond.Noy = param_nufft.oy * imDimy; %% Setup measurement operator and load data
+    param_precond.gen_uniform_weight_matrix = 1;
+    param_precond.uniform_weight_sub_pixels = 1;
 
 end

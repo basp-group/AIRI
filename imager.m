@@ -48,23 +48,23 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     end
     
     % Set parameters releated to operators
-    [param_nufft, param_wproj] = util_set_param_operator(param_general, imDimx, imDimy, imPixelSize);
+    [param_nufft, param_wproj, param_precond] = util_set_param_operator(param_general, imDimx, imDimy, imPixelSize);
 
     % Generate operators
-    [A, At, G, W, nWimag] = util_gen_meas_op_comp_single(pathData, imDimx, imDimy, ...
-        param_general.flag_data_weighting, param_nufft, param_wproj);
+    [A, At, G, W, nWimag, aW] = util_gen_meas_op_comp_single(pathData, imDimx, imDimy, ...
+        param_general.flag_data_weighting, param_nufft, param_wproj, param_precond);
     [measop, adjoint_measop] = util_syn_meas_op_single(A, At, G, W, []);
 
     % Compute operator's spectral norm
     fprintf('\nComputing spectral norm of the measurement operator..')
-    param_general.measOpNorm = op_norm(measop, adjoint_measop, [imDimy,imDimx], 1e-6, 500, 0);
+    param_general.measOpNorm = op_norm(measop, adjoint_measop, [imDimy,imDimx], 1e-6, 200, 0);
     fprintf('\nINFO: measurement op norm %f', param_general.measOpNorm);
     % if use primal-dual
     if ismember(param_general.algorithm, {'cairi', 'cpnp-bm3d'})
-        [~, adjoint_measop_cmp] = util_syn_meas_op_single(A, At, G, W, [], true);
-        param_general.measOpNormCmp = op_norm(measop, adjoint_measop_cmp, [imDimy,imDimx], 1e-6, 500, 0);
+        [measop_cmp, adjoint_measop_cmp] = util_syn_meas_op_single(A, At, G, W, aW, true);
+        param_general.measOpNormCmp = op_norm(measop_cmp, adjoint_measop_cmp, [imDimy,imDimx], 1e-6, 200, 0);
         fprintf('\nINFO: measurement op norm with complex adjoint meas op %f', param_general.measOpNormCmp);
-        clear adjoint_measop_cmp
+        clear measop_cmp adjoint_measop_cmp
     end
     
     % Compute PSF
@@ -86,7 +86,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
         % Calculate the correction factor of the heuristic noise level when
         % data weighting vector is used
         [measop_prime, adjoint_measop_prime] = util_syn_meas_op_single(A, At, G, W, nWimag.^2);
-        measOpNorm_prime = op_norm(measop_prime, adjoint_measop_prime, [imDimy,imDimx], 1e-6, 500, 0);
+        measOpNorm_prime = op_norm(measop_prime, adjoint_measop_prime, [imDimy,imDimx], 1e-6, 200, 0);
         heuristic_correction = sqrt(measOpNorm_prime/param_general.measOpNorm);
         clear measop_prime adjoint_measop_prime nWimag;
         heuristic_noise = heuristic_noise .* heuristic_correction;
@@ -117,9 +117,9 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
             case 'upnp-bm3d'
                 [MODEL, RESIDUAL] = upnp_bm3d(dirty, measop, adjoint_measop, param_imaging, param_algo);
             case 'cairi'
-                [MODEL, RESIDUAL] = cairi(DATA, measop, adjoint_measop, param_imaging, param_algo);
+                [MODEL, RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW, param_imaging, param_algo);
             case 'cpnp-bm3d'
-                [MODEL, RESIDUAL] = cpnp_bm3d(DATA, measop, adjoint_measop, param_imaging, param_algo);
+                [MODEL, RESIDUAL] = cpnp_bm3d(DATA, measop, adjoint_measop, aW, param_imaging, param_algo);
         end
 
         %% Save final results
