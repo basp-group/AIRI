@@ -50,7 +50,12 @@ To clone the project with the required submodules, you may consider one of the f
 ```bash
 git clone --recurse-submodules https://github.com/basp-group/AIRI.git
 ```
-- Cloning the project using SSH key for GitHub: you should first edit the `.gitmodules` file, replacing the `https` addresses with the `git@github.com` counterpart as follows: 
+- Cloning the project using SSH key for GitHub: you should run the following command
+```bash
+git clone git@github.com:basp-group/AIRI.git
+```
+
+Next, please edit the `.gitmodules` file, replacing the `https` addresses with the `git@github.com` counterpart as follows: 
 
 ```bash
 [submodule "lib/RI-measurement-operator"]
@@ -58,11 +63,7 @@ git clone --recurse-submodules https://github.com/basp-group/AIRI.git
 	url = git@github.com/basp-group/RI-measurement-operator.git
 ```
 
-You can then clone the repository with all the submodules as follows:
-
-```bash
-git clone --recurse-submodules git@github.com:basp-group/AIRI.git
-```
+Finally, please follow the instructions in the next session [Updating submodules (optional)](#updating-submodules-optional) to clone the submodule into the repository's path.
 
 The full path to the AIRI repository is referred to as `$AIRI` in the rest of the documentation.
 
