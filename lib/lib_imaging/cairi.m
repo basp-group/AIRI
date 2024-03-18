@@ -5,9 +5,9 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW,
     % *************************************************************************
     %% Initialization
     % Ellipsoid projection parameters
-    param_proj.max_itr = 1;
-    param_proj.min_itr = 20;
-    param_proj.eps = 1e-8;
+    param_proj.min_itr = 1;
+    param_proj.max_itr = 10;
+    param_proj.eps = 1e-6;
     % load denoiser
     [netPath, scalingFactor, peakMin, peakMax] = ...
         get_net_detail(param_algo.dnnShelfPath, param_algo.heuristic, param_algo.imPeakEst);
