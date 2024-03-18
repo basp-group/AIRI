@@ -43,7 +43,7 @@
             "denoiser_comment_2": "airi default params", 
             "imMinItr": 100,
             "imMaxItr": 6000,
-            "imVarTol": 8e-5,
+            "imVarTol": 5e-5,
             "itrSave": 2000,
             "dnnAdaptivePeakTolMax": 1e-1,
             "dnnAdaptivePeakTolMin": 1e-3,
@@ -52,7 +52,7 @@
 
         "upnp_bm3d": {  
             "denoiser_comment_1": "upnp-bm3d params",
-            "heuNoiseScale": 2.0
+            "heuNoiseScale": 3.0
         },
 
         "upnp_bm3d_default": {
@@ -60,7 +60,7 @@
             "dirBM3DLib": [],
             "imMinItr": 100,
             "imMaxItr": 1200,
-            "imVarTol": 2e-4,
+            "imVarTol": 1e-4,
             "itrSave": 500
         },
 
@@ -77,7 +77,7 @@
             "denoiser_comment_2": "airi default params", 
             "imMinItr": 100,
             "imMaxItr": 4000,
-            "imVarTol": 8e-5,
+            "imVarTol": 5e-5,
             "itrSave": 2000,
             "dnnAdaptivePeakTolMax": 1e-1,
             "dnnAdaptivePeakTolMin": 1e-3,
