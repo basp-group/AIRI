@@ -12,7 +12,7 @@
     - [Add pretrained AIRI denoisers](#add-pretrained-airi-denoisers)
   - [Input Files](#input-files)
     - [Measurement file](#measurement-file)
-    - [Configuration file](#configuration-parameter-file)
+    - [Configuration file](#configuration-file)
   - [Usage and Examples](#usage-and-examples)
 
 ## Description
