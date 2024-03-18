@@ -63,7 +63,7 @@ function imager(pathData, imPixelSize, imDimx, imDimy, param_general, runID)
     if ismember(param_general.algorithm, {'cairi', 'cpnp-bm3d'})
         [measop_cmp, adjoint_measop_cmp] = util_syn_meas_op_single(A, At, G, W, aW, true);
         param_general.measOpNormCmp = op_norm(measop_cmp, adjoint_measop_cmp, [imDimy,imDimx], 1e-6, 200, 0);
-        fprintf('\nINFO: measurement op norm with complex adjoint meas op %f', param_general.measOpNormCmp);
+        fprintf('\nINFO: measurement op norm for primal-dual %f', param_general.measOpNormCmp);
         clear measop_cmp adjoint_measop_cmp
     end
     
