@@ -8,11 +8,11 @@
   - [Installation](#installation)
     - [Cloning the project](#cloning-the-project)
     - [Updating submodules (optional)](#updating-submodules-optional)
-    - [Add BM3D Library](#add-bm3d-library)
-    - [Add pretrained AIRI denoisers](#add-pretrained-airi-denoisers)
+    - [BM3D Library](#bm3d-library)
+    - [Pretrained AIRI denoisers](#pretrained-airi-denoisers)
   - [Input Files](#input-files)
     - [Measurement file](#measurement-file)
-    - [Configuration file](#configuration-file)
+    - [Configuration file](#configuration-parameter-file)
   - [Usage and Examples](#usage-and-examples)
 
 ## Description
