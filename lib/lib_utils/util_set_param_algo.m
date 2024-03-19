@@ -97,7 +97,7 @@ function param_algo = util_set_param_algo(param_general, heuristic_noise, peak_e
         % TODO: user specifiy l2 error bound
         % Theoretical l2 error bound, assume chi-square distribution, tau=1
         param_algo.epsilon = sqrt(numMeas + 2 * sqrt(numMeas));
-        param_algo.sigma = 0.98 / param_general.measOpNormCmp;
+        param_algo.sigma = 0.5 / param_general.measOpNormCmp;
 
     else
         % step size
