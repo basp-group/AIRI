@@ -94,7 +94,7 @@
             "dirBM3DLib": [],
             "imMinItr": 100,
             "imMaxItr": 1200,
-            "imVarTol": 2e-4,
+            "imVarTol": 1e-4,
             "itrSave": 500
         }
     }
