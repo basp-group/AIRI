@@ -97,22 +97,33 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
 ###  Pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can download the ONNX files from this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/o1aerlgeis93r7f9d0qms/h?rlkey=a6t7qcz19hklsfh1ndi8sgb50&dl=0). You should copy the folders ``shelf_oaid`` and ``shelf_mrid`` in ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DNNs in the `.csv` file of the denoiser shelf.
+If you'd like to use our trained AIRI denoisers, you can find the ONNX files on [Heriot-Watt Research Portal](https://doi.org/10.17861/aa1f43ee-2950-4fce-9140-5ace995893b0). You should download `v1_airi_astro-based_oaid_shelf.zip` and `v1_airi_astro-based_oaid_shelf.zip`, then copy the unzipped folders to ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DNNs in the `.csv` file of the denoiser shelf.
+
+### MATLAB
+MATLAB can be donloaded from the official website of [MathWorks](https://www.mathworks.com/products/matlab.html). To run this repository, your MATLAB version should be higher than R2019b. The toolboxes needed to be installed are shown below.
+
+```
+Deep Learning Toolbox
+Deep Learning Toolbox Converter for ONNX Model Format
+Parallel Computing Toolbox
+```
+
+You may need a proper licence to use MATLAB and required toolboxs.
 
 ## Input Files
 ### Measurement file
 The current code takes as input data a measurement file in ``.mat`` format containing the following fields:
 
- ```matlab 
-   "y"               %% vector; data (Stokes I)
-   "u"               %% vector; u coordinate (in units of the wavelength)
-   "v"               %% vector; v coordinate (in units of the wavelength)
-   "w"               %% vector; w coordinate (in units of the wavelength)
-   "nW"              %% vector; inverse of the noise standard deviation 
-   "nWimag"          %% vector; square root of the imaging weights if available (Briggs or uniform), empty otherwise
-   "frequency"       %% scalar; observation frequency
-   "maxProjBaseline" %% scalar; maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
-   ```
+```matlab 
+  "y"               %% vector; data (Stokes I)
+  "u"               %% vector; u coordinate (in units of the wavelength)
+  "v"               %% vector; v coordinate (in units of the wavelength)
+  "w"               %% vector; w coordinate (in units of the wavelength)
+  "nW"              %% vector; inverse of the noise standard deviation 
+  "nWimag"          %% vector; square root of the imaging weights if available (Briggs or uniform), empty otherwise
+  "frequency"       %% scalar; observation frequency
+  "maxProjBaseline" %% scalar; maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
+```
 
 An example measurement file ``3c353_meas_dt_1_seed_0.mat`` is provided in the folder ``$AIRI/data``. The full synthetic test set used in [1] can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0).
 
@@ -149,4 +160,4 @@ run_imager(pth_config, ... % path of the configuration file
   )
 ```
 
-Example scripts are provided in the folder `$AIRI/example`. These scripts will reconstruct the groundtruth image `$AIRI/data/3c353_gdth.fits` from the measurement file `$uSARA/data/3c353_meas_dt_1_seed_0.mat`.  To launch these tests, please change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder `$AIRI/results/`.
+Example scripts are provided in the folder `$AIRI/example`. These scripts will reconstruct the groundtruth image `$AIRI/data/3c353_gdth.fits` from the measurement file `$uSARA/data/3c353_meas_dt_1_seed_0.mat`. To launch these tests, please change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder `$AIRI/results/`.

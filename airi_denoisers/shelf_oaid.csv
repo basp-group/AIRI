@@ -1,8 +1,8 @@
-2.5e-6,./airi_denoisers/shelf_oaid/dncnn_noise_2.5e-6_seed_0.onnx
-5.0e-6,./airi_denoisers/shelf_oaid/dncnn_noise_5.0e-6_seed_0.onnx
-1.0e-5,./airi_denoisers/shelf_oaid/dncnn_noise_1.0e-5_seed_0.onnx
-2.0e-5,./airi_denoisers/shelf_oaid/dncnn_noise_2.0e-5_seed_0.onnx
-4.0e-5,./airi_denoisers/shelf_oaid/dncnn_noise_4.0e-5_seed_0.onnx
-8.0e-5,./airi_denoisers/shelf_oaid/dncnn_noise_8.0e-5_seed_0.onnx
-1.6e-4,./airi_denoisers/shelf_oaid/dncnn_noise_1.6e-4_seed_0.onnx
-3.2e-4,./airi_denoisers/shelf_oaid/dncnn_noise_3.2e-4_seed_0.onnx
+2.5e-6,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_2.5e-6_seed_0.onnx
+5.0e-6,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_5.0e-6_seed_0.onnx
+1.0e-5,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_1.0e-5_seed_0.onnx
+2.0e-5,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_2.0e-5_seed_0.onnx
+4.0e-5,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_4.0e-5_seed_0.onnx
+8.0e-5,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_8.0e-5_seed_0.onnx
+1.6e-4,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_1.6e-4_seed_0.onnx
+3.2e-4,./airi_denoisers/v1_airi_astro-based_oaid_shelf/airi_oaid_dncnn_noise_3.2e-4_seed_0.onnx
