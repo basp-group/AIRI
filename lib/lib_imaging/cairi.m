@@ -11,7 +11,19 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW,
     % load denoiser
     [netPath, scalingFactor, peakMin, peakMax] = ...
         get_net_detail(param_algo.dnnShelfPath, param_algo.heuristic, param_algo.imPeakEst);
-    denoiser = get_resized_dnn(netPath, param_imaging.imDims);
+    if param_algo.dnnApplyTransform && param_imaging.imDims(1) ~= param_imaging.imDims(2)
+        paddingFlag = true;
+        netInSize = max(param_imaging.imDims);
+        netInSize = [netInSize, netInSize];
+        imgPadX = floor((netInSize(2) - param_imaging.imDims(2))/2) + 1;
+        imgPadX = [imgPadX, imgPadX+param_imaging.imDims(2)-1];
+        imgPadY = floor((netInSize(1) - param_imaging.imDims(1))/2) + 1;
+        imgPadY = [imgPadY, imgPadY+param_imaging.imDims(1)-1];
+    else
+        paddingFlag = false;
+        netInSize = param_imaging.imDims;
+    end
+    denoiser = get_resized_dnn(netPath, netInSize);
 
     % adaptive network selection
     if param_algo.dnnAdaptivePeak
@@ -38,7 +50,13 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW,
         MODEL = MODEL - param_algo.sigma .* adjoint_measop(DUAL);
         % denoising step, apply AIRI denoiser
         if param_algo.dnnApplyTransform
-            rot_id  = randi([0 3]); % times of 90-degree rotation
+            if paddingFlag
+                % padding array if not squre
+                MODEL_ = zeros(netInSize);
+                MODEL_(imgPadY(1):imgPadY(2), imgPadX(1):imgPadX(2)) = MODEL;
+                MODEL = MODEL_;
+            end
+            rot_id = randi([0 3]); % times of 90-degree rotation
             do_fliplr = randi([0 1]); % left-right flip
             do_flipud = randi([0 1]); % up-down flip
 
@@ -60,6 +78,10 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW,
             if do_fliplr, MODEL = fliplr(MODEL);
             end
             if rot_id > 0, MODEL = rot90(MODEL,-rot_id);
+            end
+
+            if paddingFlag
+                MODEL = MODEL(imgPadY(1):imgPadY(2), imgPadX(1):imgPadX(2));
             end
         end
 
@@ -116,7 +138,7 @@ function [FINAL_MODEL, FINAL_RESIDUAL] = cairi(DATA, measop, adjoint_measop, aW,
                 [netPath, scalingFactor_new, peakMin, peakMax] = ...
                     get_net_detail(param_algo.dnnShelfPath, param_algo.heuristic, peak_curr);
                 if scalingFactor_new ~= scalingFactor
-                    denoiser = get_resized_dnn(netPath, param_imaging.imDims);
+                    denoiser = get_resized_dnn(netPath, netInSize);
                     scalingFactor = scalingFactor_new;
                     dnnAdaptivePeakTol = max(dnnAdaptivePeakTol/param_algo.dnnAdaptivePeakTolStep, ...
                         param_algo.dnnAdaptivePeakTolMin);
