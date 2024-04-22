@@ -160,4 +160,4 @@ run_imager(pth_config, ... % path of the configuration file
   )
 ```
 
-Example scripts are provided in the folder `$AIRI/example`. These scripts will reconstruct the groundtruth image `$AIRI/data/3c353_gdth.fits` from the measurement file `$uSARA/data/3c353_meas_dt_1_seed_0.mat`. To launch these tests, please change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder `$AIRI/results/`.
+Example scripts are provided in the folder `$AIRI/example`. These scripts will reconstruct the groundtruth image `$AIRI/data/3c353_gdth.fits` from the measurement file `$AIRI/data/3c353_meas_dt_1_seed_0.mat`. To launch these tests, please change your current directory to ``$AIRI/examples`` and launch the MATLAB scripts inside the folder. The results will be saved in the folder `$AIRI/results/`.
