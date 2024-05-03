@@ -19,7 +19,7 @@
         "flag": {  
             "flag_comment_1": "flags",  
             "flag_imaging": true,    
-            "flag_data_weighting": true
+            "flag_data_weighting": false
         },
 
         "other":{
