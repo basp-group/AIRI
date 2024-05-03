@@ -8,7 +8,7 @@
             "imDimx": 512,
             "imDimy": 512,
             "imPixelSize": [],
-            "superresolution": 1.0,
+            "superresolution": 1,
             "groundtruth": [],
             "runID": []
         }
@@ -23,6 +23,10 @@
         },
 
         "other":{
+            "weight_type": "robust",
+            "weight_robustness": 0,
+            "weight_gridsize": 1,
+            "weight_load": false,
             "dirProject": [],
             "ncpus": []
         }

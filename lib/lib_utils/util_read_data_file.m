@@ -1,16 +1,8 @@
-function [y, flag_data_weighting] = util_read_data_file(dataFilename, flag_data_weighting)
+function y = util_read_data_file(dataFilename, flag_data_weighting)
+dataloaded = load(dataFilename, 'y', 'nW');
 
-    try dataloaded = load(dataFilename, 'y', 'nW', 'nWimag');
-    catch
-        dataloaded = load(dataFilename, 'y', 'nW');
-    end
-    
-    if flag_data_weighting && isfield(dataloaded, 'nWimag') && ~isempty(dataloaded.nWimag)
-        y = double(dataloaded.y(:)) .* double(dataloaded.nW(:)) .* double(dataloaded.nWimag(:));
-    else
-        fprintf('\nINFO: imaging weights will not be applied.');
-        flag_data_weighting = false;
-        y = double(dataloaded.y(:)) .* double(dataloaded.nW(:));
-    end
+% apply natural weights
+y = double(dataloaded.y(:)) .* double(dataloaded.nW(:));
+
 
 end

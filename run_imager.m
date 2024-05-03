@@ -4,25 +4,25 @@ function run_imager(json_filename, NameValueArgs)
 % ----------
 % json_filename : string
 %     Name of the .json configuration file.
-% NameValueArgs : 
+% NameValueArgs :
 % Returns
 % -------
 % None
 %
 
 arguments
-    json_filename (1,:) {mustBeFile}
-    NameValueArgs.srcName (1,:) {mustBeText}
-    NameValueArgs.dataFile (1,:) {mustBeFile}
-    NameValueArgs.resultPath (1,:) {mustBeText}
-    NameValueArgs.algorithm (1,:) {mustBeMember(NameValueArgs.algorithm,{'airi','cairi','upnp-bm3d','cpnp-bm3d'})}
-    NameValueArgs.imDimx (1,1) {mustBePositive, mustBeInteger}
-    NameValueArgs.imDimy (1,1) {mustBePositive, mustBeInteger}
-    NameValueArgs.dnnShelfPath (1,:) {mustBeFile}
-    NameValueArgs.imPixelSize (1,1) {mustBePositive}
-    NameValueArgs.superresolution (1,1) {mustBePositive}
-    NameValueArgs.groundtruth (1,:) {mustBeFile}
-    NameValueArgs.runID (1,1) {mustBeNonnegative, mustBeInteger}
+    json_filename(1, :) {mustBeFile}
+    NameValueArgs.srcName(1, :) {mustBeText}
+    NameValueArgs.dataFile(1, :) {mustBeFile}
+    NameValueArgs.resultPath(1, :) {mustBeText}
+    NameValueArgs.algorithm(1, :) {mustBeMember(NameValueArgs.algorithm, {'airi', 'cairi', 'upnp-bm3d', 'cpnp-bm3d'})}
+    NameValueArgs.imDimx(1, 1) {mustBePositive, mustBeInteger}
+    NameValueArgs.imDimy(1, 1) {mustBePositive, mustBeInteger}
+    NameValueArgs.dnnShelfPath(1, :) {mustBeFile}
+    NameValueArgs.imPixelSize(1, 1) {mustBePositive}
+    NameValueArgs.superresolution(1, 1) {mustBePositive}
+    NameValueArgs.groundtruth(1, :) {mustBeFile}
+    NameValueArgs.runID(1, 1) {mustBeNonnegative, mustBeInteger}
 end
 
 %% Parsing json file
@@ -136,15 +136,15 @@ if ~isfield(param_general, 'verbose')
 end
 % super-resolution factor
 if isfield(main, 'superresolution') && ~isempty(main.superresolution)
-    param_general.superresolution = main.superresolution; % the ratio between the given max projection base line and the desired one 
+    param_general.superresolution = main.superresolution; % the ratio between the given max projection base line and the desired one
 else
     param_general.superresolution = 1.0;
 end
 % compute resources
-if isfield(param_general,'ncpus') && ~isempty(param_general.ncpus)
-    navail=maxNumCompThreads;
+if isfield(param_general, 'ncpus') && ~isempty(param_general.ncpus)
+    navail = maxNumCompThreads;
     nrequested = maxNumCompThreads(param_general.ncpus);
-    fprintf("\nINFO: Available CPUs: %d. Requested CPUs: %d\n",navail , maxNumCompThreads)
+    fprintf("\nINFO: Available CPUs: %d. Requested CPUs: %d\n", navail, maxNumCompThreads)
 else
     fprintf("\nINFO: Available CPUs: %d.\n", maxNumCompThreads)
 end
