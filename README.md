@@ -127,7 +127,7 @@ The current code takes as input data a measurement file in ``.mat`` format conta
 
 An example measurement file ``3c353_meas_dt_1_seed_0.mat`` is provided in the folder ``$AIRI/data``. The full synthetic test set used in [1] can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0).
 
-To extract the measurement file from Measurement Set Tables (MS), you can use the utility Python script `$AIRI/pyxisMs2mat/pyxis_ms2mat.py`. Instructions are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/pyxisMs2mat/README.md).
+To extract the measurement file from Measurement Set Tables (MS), you can use the utility Python script `$AIRI/ms2mat/ms2mat.py`. Instructions are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/ms2mat/README.md).
 
 Note that the measurement file is of the same format as the input expected in the library [Faceted-HyperSARA](https://github.com/basp-group/Faceted-HyperSARA) for wideband imaging.
 

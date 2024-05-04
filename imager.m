@@ -25,10 +25,10 @@ end
 
 % src/test name tag for outputs filename
 if ~isfield(param_general, 'srcName') || isempty(param_general.srcName)
-    [~, param_general.srcname, ~] = fileparts(pathData);
+    [~, param_general.srcName, ~] = fileparts(pathData);
 end
 if ~isempty(runID)
-    param_general.srcname = [param_general.srcname, '_runID_', num2str(runID)];
+    param_general.srcName = [param_general.srcName, '_runID_', num2str(runID)];
 end
 
 %% Measurement operator
