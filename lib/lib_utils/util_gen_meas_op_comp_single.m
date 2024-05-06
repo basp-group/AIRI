@@ -41,7 +41,8 @@ load(dataFilename, 'u', 'v', 'w', 'nW');
 u = double(u(:)) * pi / double(param_wproj.halfSpatialBandwidth);
 v = -double(v(:)) * pi / double(param_wproj.halfSpatialBandwidth);
 w = -double(w(:)); % !!  -1 to w coordinate
-
+nW = double(nW(:));
+nmeas = numel(u);
 %% nufft operators
 % compute dimensions
 J = [param_nufft.Ky, param_nufft.Kx]; %  Dim. of the interpolation kernel
@@ -71,7 +72,7 @@ end
 
 if flag_gen_weights
     if isscalar(nW)
-        nW2 = double(nW^2) .* ones(size(u));
+        nW2 = double(nW^2) .* ones(nmeas,1);
     else
         nW2 = double(nW).^2;
     end
@@ -80,11 +81,10 @@ if flag_gen_weights
 end, clear nW2;
 
 % inject weights in G
-% G = (nWimag .* double(nW)) .* G;
-nW = nWimag .* nW;
-if ~isscalar(nW)
-    G = spdiags(nW,0,numel(nW),numel(nW)) * G;
-else,  G = nW.*G;
+try  
+    G = (nWimag .* nW) .* G;
+catch
+    G = sparse(1:nmeas, 1:nmeas, (nWimag .* nW), nmeas, nmeas) * G;
 end
 clear nW;
 
