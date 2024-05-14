@@ -100,16 +100,12 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 If you'd like to use our trained AIRI denoisers, you can find the ONNX files on [Heriot-Watt Research Portal](https://doi.org/10.17861/aa1f43ee-2950-4fce-9140-5ace995893b0). You should download `v1_airi_astro-based_oaid_shelf.zip` and `v1_airi_astro-based_oaid_shelf.zip`, then copy the unzipped folders to ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DNNs in the `.csv` file of the denoiser shelf.
 
 ### MATLAB
-MATLAB can be donloaded from the official website of [MathWorks](https://www.mathworks.com/products/matlab.html). To run this repository, your MATLAB version should be higher than R2019b. The toolboxes needed to be installed are shown below.
-
+MATLAB can be downloaded from the official website of [MathWorks](https://www.mathworks.com/products/matlab.html). To run this repository, your MATLAB version should be higher than R2019b. Specifically, if you'd like to use the facet parallisation mode, then the version should be higher than R2022b. The below toolboxes are required:
 ```
 Deep Learning Toolbox
 Deep Learning Toolbox Converter for ONNX Model Format
 Parallel Computing Toolbox
 ```
-
-You may need a proper licence to use MATLAB and required toolboxs.
-
 ## Input Files
 ### Measurement file
 The current code takes as input data a measurement file in ``.mat`` format containing the following fields:
