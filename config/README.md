@@ -12,7 +12,7 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
     - ``imDimx``: Horizontal dimension of the estimated image.
     - ``imDimy``: Vertical dimension of the estimated image.
     - ``imPixelSize``(optional): Pixel size of the estimated image in the unit of arcsec. If empty, its value is inferred from ``superresolution`` such that ``imPixelSize = (180 / pi) * 3600 / (superresolution * 2 * maxProjBaseline)``.
-    - ``superresolution``(optional): Imaging super-resolution factor, used when the pixel size is not provided (recommended to be in [1.5, 2.5]). Default: ``1.0``.
+    - ``superresolution``(optional): Imaging super-resolution factor, used when the pixel size is not provided (recommended to be in ``[1.5, 2.5]``). Default: ``1.0``.
     - ``groundtruth``(optional): Path of the groundtruth image. The file must be in ``.fits `` format, and is used to compute reconstruction metrics if a valid path is provided.
     - ``runID``(optional): Identification number of the current task.
 
@@ -21,11 +21,15 @@ The configuration file is composed by three parts, i.e. Main, General and Denois
 2. General
     - ``flag``
         - ``flag_imaging``(optional): Enable imaging. If ``false``, the back-projected data (dirty image) and corresponding PSF are generated. Default: ``true``.
-        - ``flag_data_weighting``(optional): Use the data-weighting scheme, with the weights ``nWimag`` given in the measurement file. Default: ``true``.
+        - ``flag_data_weighting``(optional): Enable data-weighting scheme. Default: ``true``.
 
     - ``other``
         - ``dirProject``(optional): Path to project repository. Default: MATLAB's current running path.
         - ``ncpus``(optional): Number of CPUs used for imaging task. If empty, the script will make use of the available CPUs.
+        - ``weight_type``(optional): The data-weighting scheme (``briggs``, ``uniform``). Default: ``uniform`` if ``flag_data_weighting`` is ``true``, empty otherwise.
+        - ``weight_robustness``(optional): Briggs (robust) parameter to be set in ``[-2, 2]``. Default: ``0``.
+        - ``weight_gridsize``(optional): Padding factor involved in the density of the sampling. Default: ``2``.
+        - ``weight_load``(optional): Flag to indicate if imaging weights are available in the data file. Default: false.
 
 3. Denoiser
     - ``airi`` and ``airi_default``
