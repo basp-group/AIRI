@@ -23,9 +23,9 @@
         },
 
         "other":{
-            "weight_type": "robust",
+            "weight_type": "briggs",
             "weight_robustness": 0,
-            "weight_gridsize": 1,
+            "weight_gridsize": 2,
             "weight_load": false,
             "dirProject": [],
             "ncpus": []
