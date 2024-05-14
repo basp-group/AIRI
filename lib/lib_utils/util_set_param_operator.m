@@ -95,7 +95,7 @@ end
 if ~isfield(param_general, 'precond_weight_type') || isempty(param_general.precond_weight_type)
     param_precond.weight_type = 'uniform';
 else
-    param_weight.weight_type = param_general.precond_weight_type;
+    param_precond.weight_type = param_general.precond_weight_type;
 end
 
 if ~isfield(param_general, 'precond_weight_gridsize') || isempty(param_general.precond_weight_gridsize)
