@@ -79,7 +79,7 @@ if flag_airi
     end
     % path to the denoiser shelf
     if ~isfield(param_general, 'dnnShelfPath')
-        param_algo.dnnShelfPath = fullfile(param_general.dirProject, 'denoiser_shelf', 'shelf_astro.csv');
+        param_algo.dnnShelfPath = fullfile(param_general.dirProject, 'airi_denoisers', 'shelf_oaid.csv');
     else
         param_algo.dnnShelfPath = param_general.dnnShelfPath;
     end
