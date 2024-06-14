@@ -28,7 +28,7 @@ if ~isfield(param_general, 'srcName') || isempty(param_general.srcName)
     [~, param_general.srcName, ~] = fileparts(pathData);
 end
 if ~isempty(runID)
-    param_general.srcName = [param_general.srcName, '_runID_', num2str(runID)];
+    param_general.srcName = strcat(param_general.srcName, '_runID_', num2str(runID));
 end
 
 %% Measurement operator
