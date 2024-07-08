@@ -5,9 +5,9 @@ The algorithms implemented in this repository are launched through the function 
 The configuration file is composed by three parts, i.e. Main, General and Denoiser. 
 
 1. Main
-    - ``srcName``(optional): Experiment/target source name tag, used in the output filenames. If this field is empty, the script will take the filename given in the ``dataFile``.
+    - ``srcName``(optional): Experiment/target source name tag, used in the output subfolder name. If this field is empty, the script will take the filename given in the ``dataFile``.
     - ``dataFile``: Path to the measurement (data) file. The measurement file must be in ``.mat`` format containing fields discussed [here](https://github.com/basp-group/AIRI?tab=readme-ov-file#measurement-file).
-    - ``resultPath``(optional): Path to the output files. The script will create a folder in ``$resultPath`` with name ``${srcname}_${algorithm}_ID_${runID}_heuScale_${heuNoiseScale}_maxItr_${imMaxItr}``. The results will then be saved in this folder. Default: ``$AIRI/results``
+    - ``resultPath``(optional): Path to the output files. The script will create a folder in ``$resultPath`` with name ``${srcname}``. The result images will be saved in this subfolder with a prefix ``${algorithm}_ID_${runID}_heuScale_${heuNoiseScale}``. Default: ``$AIRI/results``
     - ``algorithm``: Imaging algorithm, must be set to ``airi``, ``upnp-bm3d``, ``cAIRI`` or ``cpnp-bm3d``.
     - ``imDimx``: Horizontal dimension of the estimated image.
     - ``imDimy``: Vertical dimension of the estimated image.
