@@ -71,10 +71,10 @@ for itr = 1:param_algo.imMaxItr
     % save intermediate results
     if mod(itr, param_imaging.itrSave) == 0
         fitswrite(MODEL, fullfile(param_imaging.resultPath, ...
-            ['tmpModel_itr_', num2str(itr), '.fits']))
+            strcat(param_imaging.fileNamePrefix, '_tmp_model_itr_', num2str(itr), '.fits')))
         RESIDUAL = adjoint_measop(DATA - measop(MODEL));
         fitswrite(RESIDUAL, fullfile(param_imaging.resultPath, ...
-            ['tmpResidual_itr_', num2str(itr), '.fits']))
+            strcat(param_imaging.fileNamePrefix, '_tmp_residual_itr_', num2str(itr), '.fits')))
     end
 
 end

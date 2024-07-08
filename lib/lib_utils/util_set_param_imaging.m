@@ -1,29 +1,31 @@
-function param_imaging = util_set_param_imaging(param_general, param_algo, imDims)
+function param_imaging = util_set_param_imaging(param_general, param_algo, imDims, runID)
 
 % set subfolder name for saving results
+subFolerName = param_general.srcName;
 switch param_general.algorithm
     case 'airi'
-        subFolerName = strcat(param_general.srcName, '-AIRI_heuScale_', ...
-            num2str(param_algo.heuNoiseScale), ...
-            '_maxItr_', num2str(param_algo.imMaxItr));
+        fileNamePrefix = strcat('AIRI_heuScale_', ...
+            num2str(param_algo.heuNoiseScale));
     case 'cairi'
-        subFolerName = strcat(param_general.srcName, '-cAIRI_heuScale_', ...
-            num2str(param_algo.heuNoiseScale), ...
-            '_maxItr_', num2str(param_algo.imMaxItr));
+        fileNamePrefix = strcat('cAIRI_heuScale_', ...
+            num2str(param_algo.heuNoiseScale));
     case 'upnp-bm3d'
-        subFolerName = strcat(param_general.srcName, '-uPnP-BM3D_heuScale_', ...
-            num2str(param_algo.heuNoiseScale), ...
-            '_maxItr_', num2str(param_algo.imMaxItr));
+        fileNamePrefix = strcat('uPnP-BM3D_heuScale_', ...
+            num2str(param_algo.heuNoiseScale));
     case 'cpnp-bm3d'
-        subFolerName = strcat(param_general.srcName, '-cPnP-BM3D_heuScale_', ...
-            num2str(param_algo.heuNoiseScale), ...
-            '_maxItr_', num2str(param_algo.imMaxItr));
+        fileNamePrefix = strcat('cPnP-BM3D_heuScale_', ...
+            num2str(param_algo.heuNoiseScale));
 end
+if ~isempty(runID)
+    fileNamePrefix = strcat(fileNamePrefix, '_runID_', num2str(runID));
+end
+
 % set full path
 param_imaging.resultPath = fullfile(param_general.resultPath, subFolerName);
 if ~exist(param_imaging.resultPath, 'dir')
     mkdir(param_imaging.resultPath)
 end
+param_imaging.fileNamePrefix = fileNamePrefix;
 
 fprintf('\nINFO: results will be saved in ''%s''', param_imaging.resultPath);
 

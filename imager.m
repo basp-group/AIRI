@@ -27,9 +27,6 @@ end
 if ~isfield(param_general, 'srcName') || isempty(param_general.srcName)
     [~, param_general.srcName, ~] = fileparts(pathData);
 end
-if ~isempty(runID)
-    param_general.srcName = strcat(param_general.srcName, '_runID_', num2str(runID));
-end
 
 %% Measurement operator
 % Set pixel size
@@ -102,10 +99,10 @@ end
 
 %% Set parameters for imaging and algorithms
 param_algo = util_set_param_algo(param_general, heuristic_noise, peak_est, numel(DATA));
-param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy, imDimx]);
+param_imaging = util_set_param_imaging(param_general, param_algo, [imDimy, imDimx], runID);
 
 %% Save dirty image & PSF
-fitswrite(single(PSF), fullfile(param_imaging.resultPath, 'PSF.fits'));
+fitswrite(single(PSF), fullfile(param_imaging.resultPath, 'psf.fits'));
 clear PSF;
 fitswrite(single(dirty./PSFPeak), fullfile(param_imaging.resultPath, 'dirty.fits'));
 
@@ -132,9 +129,9 @@ if param_imaging.flag_imaging
     end
 
     %% Save final results
-    fitswrite(MODEL, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_model_image.fits']))
-    fitswrite(RESIDUAL, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image.fits']))
-    fitswrite(RESIDUAL./PSFPeak, fullfile(param_imaging.resultPath, [param_algo.algorithm, '_residual_dirty_image_normalised.fits']))
+    fitswrite(MODEL, fullfile(param_imaging.resultPath, strcat(param_imaging.fileNamePrefix, '_model_image.fits')))
+    fitswrite(RESIDUAL, fullfile(param_imaging.resultPath, strcat(param_imaging.fileNamePrefix, '_residual_dirty_image.fits')))
+    fitswrite(RESIDUAL./PSFPeak, fullfile(param_imaging.resultPath, strcat(param_imaging.fileNamePrefix, '_residual_dirty_image_normalised.fits')))
     fprintf("\nFits files saved.")
 
     %% Final metrics
