@@ -123,7 +123,7 @@ The current code takes as input data a measurement file in ``.mat`` format conta
   "maxProjBaseline" %% scalar; maximum projected baseline (in units of the wavelength; formally  max(sqrt(u.^2+v.^2)))
 ```
 
-An example measurement file ``3c353_meas_dt_1_seed_0.mat`` is provided in the folder ``$AIRI/data``. The full synthetic test set used in [1] can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0).
+An example measurement file ``3c353_meas_dt_1_seed_0.mat`` is provided in the folder ``$AIRI/data``. The full synthetic test set used in [1] can be found in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/et0o4jl0d9twskrshdd7j/h?rlkey=gyl3fj3y7ca1tmoa1gav71kgg&dl=0) and the corresponding ground truth images are in this (temporary) [Dropbox link](https://www.dropbox.com/scl/fo/mct058u0ww9301vrsgeqj/h?rlkey=hz8py389nay5jmqgzxz4knqja&dl=0).
 
 To extract the measurement file from Measurement Set Tables (MS), you can use the utility Python script `$AIRI/ms2mat/ms2mat.py`. Instructions are provided in the [Readme File](https://github.com/basp-group/AIRI/blob/main/ms2mat/README.md).
 
