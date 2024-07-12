@@ -23,7 +23,7 @@
 >
 >[2] Terris, M., Dabbech, A., Tang, C., & Wiaux, Y., [Image reconstruction algorithms in radio interferometry: From handcrafted to learned regularization denoisers](https://doi.org/10.1093/mnras/stac2672). *MNRAS, 518*(1), 604-622, 2023.
 
-We also provide a [tutorial](./tutorial_airi_matlab.mlx) in the format of MATLAB live script as a quick start guide about how to run the scripts in this repository, from setting up the environemnt to imaging RI measurements.
+We also provide a [tutorial](./tutorial_airi_matlab.mlx) in the format of MATLAB live script as a quick start guide about how to run the scripts in this repository, from setting up the environment to imaging RI measurements. It can also be viewed online [here](https://basp-group.github.io/BASPLib/AIRI_tutorial.html).
 
 ## Dependencies 
 
