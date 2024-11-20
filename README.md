@@ -99,7 +99,7 @@ spctl --add bm3d_thr_colored_noise.mexmaci64
 ```
 
 ###  Pretrained AIRI denoisers
-If you'd like to use our trained AIRI denoisers, you can find the ONNX files on [Heriot-Watt Research Portal](https://doi.org/10.17861/aa1f43ee-2950-4fce-9140-5ace995893b0). You should download `v1_airi_astro-based_oaid_shelf.zip` and `v1_airi_astro-based_oaid_shelf.zip`, then copy the unzipped folders to ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DNNs in the `.csv` file of the denoiser shelf.
+If you'd like to use our trained AIRI denoisers, you can find the ONNX files on [Heriot-Watt Research Portal](https://doi.org/10.17861/aa1f43ee-2950-4fce-9140-5ace995893b0). You should download `v1_airi_astro-based_oaid_shelf.zip` and `v1_airi_astro-based_mrid_shelf.zip`, then copy the unzipped folders to ``$AIRI/airi_denoisers/`` folder of this repository. Alternatively, make sure to update the full paths to the DNNs in the `.csv` file of the denoiser shelf.
 
 ### MATLAB
 MATLAB can be downloaded from the official website of [MathWorks](https://www.mathworks.com/products/matlab.html). To run this repository, your MATLAB version should be higher than R2019b. The below toolboxes are required:
