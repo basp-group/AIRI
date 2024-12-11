@@ -25,6 +25,8 @@
 
 We also provide a [tutorial](./tutorial_airi_matlab.mlx) in the format of MATLAB live script as a quick start guide about how to run the scripts in this repository, from setting up the environment to imaging RI measurements. It can also be viewed online [here](https://basp-group.github.io/BASPLib/AIRI_tutorial.html).
 
+**A Python version of this code is now available [here](https://github.com/basp-group/Small-scale-RI-imaging)**.
+
 ## Dependencies 
 
 This repository relies on two auxiliary submodules :
